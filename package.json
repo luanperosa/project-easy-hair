@@ -1,0 +1,27 @@
+{
+  "name": "project-easy-hair",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luanperosa/project-easy-hair.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luanperosa/project-easy-hair/issues"
+  },
+  "homepage": "https://github.com/luanperosa/project-easy-hair#readme",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "hbs": "^4.0.4",
+    "mongoose": "^5.7.0"
+  }
+}
