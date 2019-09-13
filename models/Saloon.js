@@ -1,23 +1,22 @@
 const { Schema, model } = require('mongoose');
 
 const newSaloon = new Schema({
-  salonName: { type: String, required: true },
-  adress: { 
+  saloonName: { type: String, required: true },
+  saloonEmail: { type: String, required: true },
+  address: {
     street: { type: String, required: true },
     zipcode: { type: String, require: true },
     city: { type: String, require: true },
-    state: { type: String, require: true},
+    state: { type: String, require: true },
     country: { type: String, default: 'Brazil' },
   },
-  phoneNumber: { type: Number, required: true},
-  businesHour: { type: String, required: true},
+  contactNumber: { type: Number, required: true },
+  businessHours: { type: String, required: true },
   imageSlideShow: { type: String, required: true },
-  imageGalery: [ { linkImage: String, nameImage: String } ],
-  linkInstagran: String,
-  services: { type: Schema.Types.ObjectId, ref: 'Service' },
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
-  coments: String,
-  reviews: String,
+  imageGalery: [{ linkImage: String, nameImage: String }],
+  linkInstagran: { type: String },
+  serviceID: { type: Schema.Types.ObjectId, ref: 'Service' },
+  userID: { type: Schema.Types.ObjectId, ref: 'User' },
 },
 {
   timestamps: true,
@@ -25,4 +24,4 @@ const newSaloon = new Schema({
 
 const Saloon = model('Saloon', newSaloon);
 
-module.exports = Salon;
+module.exports = Saloon;
