@@ -1,8 +1,9 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
-
+const User = require('./models/User'); // just test, after empity
 const app = express();
 
 mongoose
@@ -18,14 +19,12 @@ mongoose
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(express.json()) // req and res with json, maibe we use to future
+
+app.use(bodyParser.json()); // recept req.body with json
+app.use(bodyParser.urlencoded({ extended: false })); // recept req.body set form type post
 
 app.get('/test', (req, res) => {
-  res.render('public/helloWorld', { message: 'Hello World' });
-});
-
-app.get('/test', (req, res) => {
-  console.log(req.body); // check why req.body not read
+  res.render('public/helloWorld', { title: 'Hello World' });
 });
 
 // routes 
@@ -33,7 +32,7 @@ const index = require('./routes/public/index');
 app.use('/', index);
 
 const UserController = require('./controllers/UserController');
-app.use('/createSallon', UserController);
+app.use('/', UserController);
 
 app.listen(process.env.PORT, () => {
   console.log('Server linten', process.env.PORT);

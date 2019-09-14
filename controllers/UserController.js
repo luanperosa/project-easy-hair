@@ -3,22 +3,27 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/User');
 
-router.post('/', async (req, res) => {
-  const newUser = req.body;
-  console.log(newUser)
+router.post('/createUser', async (req, res) => {
+  const { userName, userEmail, cellphone, password, role } = req.body;
+  console.log(req.body);
+  
+  if (!userName || !userEmail || !cellphone || !password || !role) {
+    res.status(400).render('public/helloWorld', { err: 'Dados insuficientes, favor preencher todos os campos '} );
+  }
   try {
-    const userExist = await User.findById(newUser._id);
-    if(userExist) {
-      res.render('public/login', { message: 'Este usuário já existe' });
+    const userExist = await User.findOne({ userEmail });
+    if (userExist) {
+      return res.status(400).render('public/helloWorld', { err: 'Usuario já existente'} );  // can't read helloWorld after
     }
-    const createdUser = await User.create({newUser});
-    res.render('public/login', { message: `Usuario ${createdUser} criado com sucesso` });
 
+    const newUser = await User.create({ userName, userEmail, cellphone, password, role})
+    newUser.password = undefined; // empity password after created User on Database
+    res.status(201).render('public/helloWorld', { message: `Usuario ${userName} Criado com sucesso` });
   } catch (error) {
     if(error) {
-    throw new Error(error);
+      res.status(500).render('public/helloWorld', { err: 'Erro ao registrar usuario'} ); // can't read helloWorld after
     }
   }
-});
+}); 
 
 module.exports = router;
