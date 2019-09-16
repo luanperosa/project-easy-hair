@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 
 console.log(process.env.MONGODB_URI); // return undefined
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }) // process.env.MONGODB_URI fail, needed use the __dirname complet to Database to add User
+mongoose.connect(mongoDbAtlas, { useNewUrlParser: true }) // process.env.MONGODB_URI fail, needed use the __dirname complet to Database to add User
 
 const newUser = {
   userName: 'Luan Perosa Chitto',
