@@ -22,9 +22,16 @@ router.get('/:id/edit', async (req, res) => {
 
 router.post('/:id/edit', async (req, res) => {
   const { id } = req.params;
-  const user = req.body;
+  const { userName, userEmail, cellphone } = req.body;
+  const user = { userName, userEmail, cellphone, id };
+
+  if (userName === '' || userEmail === '' || cellphone === '' ) {
+    res.render('private/user-edit', { user, errorMessage: 'Todos os campos devem ser preenchidos' });
+    return;
+  }
+
   try {
-    await User.findByIdAndUpdate(id, user);
+    await User.findByIdAndUpdate(id, { userName, userEmail, cellphone });
     res.redirect('/user/:id/edit');
     console.log('Editado com sucesso!');
   } catch (error) {

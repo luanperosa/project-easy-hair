@@ -14,7 +14,7 @@ router.post('/signup', async (req, res) => {
     userName, userEmail, cellphone, password,
   } = req.body;
   if (userName === '' || userEmail === '' || cellphone === '' || password === '') {
-    res.status(400).render('public/signup', { errorMessage: 'Dados insuficientes, favor preencher todos os campos' });
+    res.status(400).render('public/signup', req.body, { errorMessage: 'Dados insuficientes, favor preencher todos os campos' });
     return;
   }
 
@@ -62,7 +62,7 @@ router.post('/login', async (req, res, next) => {
   if (bcrypt.compareSync(password, user.password)) {
     req.session.currentUser = user;
     console.log(`Usuário logado ${user}`);
-    res.status(201).redirect('/user');
+    res.status(201).redirect('/');
   } else {
     res.render('public/login', { errorMessage: 'Senha incorreta' });
   }
