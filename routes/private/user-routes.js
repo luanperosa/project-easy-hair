@@ -26,7 +26,7 @@ router.post('/:id/edit', async (req, res) => {
   try {
     await User.findByIdAndUpdate(id, user);
     res.redirect('/user/:id/edit');
-    console.log('Editado com sucesso!')
+    console.log('Editado com sucesso!');
   } catch (error) {
     console.log(error);
   }
