@@ -1,9 +1,14 @@
 require('dotenv').config();
+
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const express = require('express');
-const bodyParser = require('body-parser');
+const logger = require('morgan');
 const path = require('path');
-const User = require('./models/User'); // just test, after empity
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 const app = express();
 
 mongoose
@@ -15,14 +20,38 @@ mongoose
     console.error('Error connecting to mongo', err);
   });
 
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-
-
+// Middleware Setup
+app.use(logger('dev'));
 app.use(bodyParser.json()); // recept req.body with json
 app.use(bodyParser.urlencoded({ extended: false })); // recept req.body set form type post
+app.use(cookieParser());
 
+app.use(session({
+  secret: 'basic-auth-secret',
+  cookie: { maxAge: 60000000 },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60, // 1 day
+  }),
+}));
+/*
+app.use(require('node-sass-middleware')({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  sourceMap: true,
+}));
+*/
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
+const index = require('./routes/public/index');
+const authRoutes = require('./routes/public/auth-routes');
+
+app.use('/', index);
+app.use('/', authRoutes);
+/*
 app.get('/test', (req, res) => {
   res.render('public/helloWorld', { title: 'Hello World' });
 });
@@ -33,6 +62,7 @@ app.use('/', index);
 
 const UserController = require('./controllers/UserController');
 app.use('/', UserController);
+*/
 
 app.listen(process.env.PORT, () => {
   console.log('Server linten', process.env.PORT);

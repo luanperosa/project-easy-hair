@@ -1,0 +1,24 @@
+<h1>Cadastre-se</h1>
+
+<form action="/signup" method="POST">
+  <label for="name">Nome Completo</label>
+  <input id="name" type="text" name="userName" placeholder="Nome Completo">
+  <br>
+  <label for="email">Email</label>
+  <input id="email" type="text" name="userEmail" placeholder="Email">
+  <br>
+  <label for="cellphone">Celular</label>
+  <input id="cellphone" type="text" name="cellphone" placeholder="Celular">
+  <br>
+  <label for="password">Senha</label>
+  <input id="password" type="password" name="password" placeholder="Senha">
+  <br>
+
+  {{#if errorMessage}}
+    <p>{{errorMessage}}</p>
+  {{/if}}
+  
+  <button type="submit">Cadastrar</button>
+
+  <p>Voltar para a <a href="/">página inicial</a></p>
+</form>

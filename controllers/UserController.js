@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const saltrounds = 10; 
 
 router.post('/createUser', async (req, res) => {
-  const { userName, userEmail, cellphone, password, role } = req.body;
+  const { userName, userEmail, cellphone, password } = req.body;
     
   if (!userName || !userEmail || !cellphone || !password || !role) {
     res.status(400).render('public/helloWorld', { err: 'Dados insuficientes, favor preencher todos os campos '} );
