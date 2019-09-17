@@ -1,0 +1,18 @@
+<h1>Entrar na minha conta</h1>
+
+<form action="/login" method="POST">
+  <label for="email">Email</label>
+  <input id="email" type="text" name="userEmail" placeholder="Email">
+  <br>
+  <label for="password">Senha</label>
+  <input id="password" type="password" name="password" placeholder="Senha">
+  <br>
+
+  {{#if errorMessage}}
+    <p>{{errorMessage}}</p>
+  {{/if}}
+  
+  <button type="submit">Entrar</button>
+
+    <p>Voltar para a <a href="/">página inicial</a></p>
+</form>

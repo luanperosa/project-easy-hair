@@ -1,0 +1,22 @@
+<form action="/user/{{this._id}}/edit" method="POST">
+  <label for="name">Nome Completo</label>
+  <input id="name" type="text" name="userName" value="{{this.userName}}">
+  <br>
+  <label for="email">Email</label>
+  <input id="email" type="text" name="userEmail" value="{{ this.userEmail }}">
+  <br>
+  <label for="cellphone">Celular</label>
+  <input id="cellphone" type="text" name="cellphone" value="{{ this.cellphone }}">
+  <br>
+  <label for="password">Senha</label>
+  <input id="password" type="password" name="password" value="">
+  <br>
+
+  {{#if errorMessage}}
+    <p>{{errorMessage}}</p>
+  {{/if}}
+  
+  <button type="submit">Editar</button>
+
+  <p>Voltar para a <a href="/user/profile">página perfil</a></p>
+</form>

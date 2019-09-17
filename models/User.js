@@ -6,7 +6,8 @@ const newUser = new Schema({
   cellphone: { type: Number },
   password: { type: String, required: true },
   role: { type: String, enum: ['Customer', 'Owner'], default: 'Customer' },
-});
+
+}, { timestamps: true });
 
 const User = model('User', newUser);
 
