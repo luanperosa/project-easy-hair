@@ -1,10 +1,10 @@
 <h1>Welcome to Easy Hair</h1>
 
-{{#unless name}}
+{{#unless userName}}
   <a href="/login">Log in Now!</a>
   <a href="/signup">Signup</a>
 {{else}}
-  <a href="/user/:userID">{{ name }}</a>
+  <a href="/user/profile">{{ userName }}</a>
   <a href="/logout">Logout</a>
 {{/unless}}
 

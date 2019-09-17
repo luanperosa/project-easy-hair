@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   const { currentUser } = req.session;
-  console.log(`Current user is: ${currentUser}`);
+  // console.log(`Current user ID is: ${currentUser._id}`);
   res.render('public/index', currentUser);
 });
 

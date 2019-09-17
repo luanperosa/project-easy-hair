@@ -48,15 +48,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const index = require('./routes/public/index');
 const authRoutes = require('./routes/public/auth-routes');
+const userRoutes = require('./routes/private/user-routes');
 
 app.use('/', index);
 app.use('/', authRoutes);
+
+// Protected Routes Middleware
+app.use((req, res, next) => {
+  if (req.session.currentUser) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+});
+
+app.use('/user', userRoutes);
+
 /*
 app.get('/test', (req, res) => {
   res.render('public/helloWorld', { title: 'Hello World' });
 });
 
-// routes 
+// routes
 const index = require('./routes/public/index');
 app.use('/', index);
 
