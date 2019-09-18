@@ -33,11 +33,26 @@ router.post('/:id/edit', async (req, res) => {
   try {
     await User.findByIdAndUpdate(id, { userName, userEmail, cellphone });
     res.redirect('/user/:id/edit');
-    console.log('Editado com sucesso!');
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 
+})
+
+router.post('/:id/delete', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await User.findByIdAndRemove(id);
+    req.session.destroy((err) => {
+      if (err) {
+        throw new Error(error);
+      } else {
+        res.redirect('/');
+      }
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
 })
 
 module.exports = router;
