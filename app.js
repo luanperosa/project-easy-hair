@@ -49,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const index = require('./routes/public/index');
 const authRoutes = require('./routes/public/auth-routes');
 const userRoutes = require('./routes/private/user-routes');
+const scheduleRoutes = require('./routes/private/schedule-routes');
 
 app.use('/', index);
 app.use('/', authRoutes);
@@ -63,6 +64,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/user', userRoutes);
+app.use('/schedules', scheduleRoutes);
 
 /*
 app.get('/test', (req, res) => {

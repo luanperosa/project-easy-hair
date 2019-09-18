@@ -1,0 +1,18 @@
+<form action="/schedules/5d7edcf3dd648d13809509b6/create-schedule" method="post">
+  <input type="date" name="dateOfService" >
+  <input type="datetime" name="timeOfService" >
+  <input type="number" name="saloonID" >
+  <input type="number" name="userID" >
+  <input type="number" name="serviceID" >
+  <button type="submit">Agendar</button>
+</form>
+
+{{#if errorMessage}}
+  <p>{{errorMessage}}</p>
+{{/if}}
+{{#if message}}
+  <p>{{message}}</p>
+{{/if}}
+{{#if error}}
+  <p>{{error}}</p>
+{{/if}}  
