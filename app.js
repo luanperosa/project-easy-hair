@@ -78,17 +78,19 @@ app.use(passport.session());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 const index = require('./routes/public/index');
 const authRoutes = require('./routes/public/auth-routes');
 const userRoutes = require('./routes/private/user-routes');
 const ownerRoutes = require('./routes/private/owner-routes');
+const scheduleRoutes = require('./routes/private/schedule-routes');
 
 app.use('/', index);
 app.use('/', authRoutes);
 app.use('/user', userRoutes);
 app.use('/owner', ownerRoutes);
+app.use('/schedules', scheduleRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log('Server listen', process.env.PORT);
