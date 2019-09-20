@@ -8,10 +8,7 @@
   <label for="cellphone">Celular</label>
   <input id="cellphone" type="text" name="cellphone" value="{{ this.cellphone }}">
   <br>
-  <label for="password">Senha</label>
-  <input id="password" type="password" name="password" value="">
-  <br>
-
+  
   {{#if errorMessage}}
     <p>{{errorMessage}}</p>
   {{/if}}
@@ -25,3 +22,5 @@
 <form action="/user/{{ this._id }}/delete" method="POST">
 <button type="submit">Deletar minha conta</button>
 </form>
+
+<p><a href='/user/edit-password '>Alterar minha senha</a></p>
