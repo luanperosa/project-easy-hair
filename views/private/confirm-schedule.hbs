@@ -1,11 +1,26 @@
-<form action="/schedules/5d7edcf3dd648d13809509b6/create-schedule" method="post">
+{{!-- <form action="/schedules/5d7edcf3dd648d13809509b6/create-schedule" method="post">
   <input type="date" name="dateOfService" >
   <input type="datetime" name="timeOfService" >
   <input type="number" name="saloonID" >
   <input type="number" name="userID" >
   <input type="number" name="serviceID" >
   <button type="submit">Agendar</button>
-</form>
+</form> --}}
+<div class="rol">
+  <div class="col s12">
+  <form action="/schedules/5d82a372d3bfa431aafdd13c/create-schedule" class="col s12" method="post" >
+
+  <div class="input-field col s12">
+  <h1>Novo Calendario</h1>
+  <input type="text" name="dateOfService" id="calendar">
+  <input type="time" name="timeOfService" id="hour-service" >
+  <button type="submit">Save</button>
+  </div>
+  </form>
+
+  </div>
+</div>
+
 
 {{#if errorMessage}}
   <p>{{errorMessage}}</p>
@@ -16,3 +31,7 @@
 {{#if error}}
   <p>{{error}}</p>
 {{/if}}  
+
+
+
+  
