@@ -1,5 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const ensureLogin = require('connect-ensure-login');
 const User = require('../../models/User');
 
 const router = express.Router();
@@ -18,8 +20,8 @@ router.post('/signup', async (req, res) => {
     return;
   }
 
-  const userExist = await User.findOne({ userEmail });
-  if (userExist) {
+  const user = await User.findOne({ userEmail });
+  if (user) {
     res.status(400).render('public/signup', { errorMessage: 'Usuario já existente' });
     return;
   }
@@ -40,9 +42,16 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('public/login');
+  res.render('public/login', { errorMessage: req.flash('error') });
 });
 
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true,
+  passReqToCallback: true,
+}));
+/*
 router.post('/login', async (req, res, next) => {
   const { userEmail, password } = req.body;
   if (userEmail === '' || password === '') {
@@ -67,7 +76,18 @@ router.post('/login', async (req, res, next) => {
     res.render('public/login', { errorMessage: 'Senha incorreta' });
   }
 });
+*/
 
+router.get('/private-page', ensureLogin.ensureLoggedIn(), (req, res) => {
+  res.send({ user: req.user });
+});
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
+});
+
+/*
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -77,5 +97,6 @@ router.get('/logout', (req, res) => {
     }
   });
 });
+*/
 
 module.exports = router;
