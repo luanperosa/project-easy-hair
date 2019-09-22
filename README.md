@@ -14,7 +14,7 @@ Project Contributors:
  
 see my linkedin: https://www.linkedin.com/in/luan-perosa/
 
-my Github: https://wwwlgithub.com/luanperosa
+my Github: https://github.com/luanperosa
 
 
 <h3>Rodrigo Jikal</h3>
@@ -23,4 +23,4 @@ my Github: https://wwwlgithub.com/luanperosa
 
 see my linkedin: https://www.linkedin.com/in/rodrigo-jikal/
 
-my Github: https:/www/github.com/jegarin
+my Github: https://github.com/jegarin
