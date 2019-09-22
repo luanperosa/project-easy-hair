@@ -9,11 +9,14 @@ We are in the implementation phase, this project is for Ironhack Bootcamp module
 Project Contributors: 
 
 Luan Perosa Chitto
+
 ![image](https://user-images.githubusercontent.com/50602816/65395012-6fe49000-dd6b-11e9-9c81-1ab4554c61a6.png)
  
 see my linkedin: https://www.linkedin.com/in/luan-perosa/
 
+
 Rodrigo Jikal
+
 ![image](https://user-images.githubusercontent.com/50602816/65395077-5db72180-dd6c-11e9-8638-27116a20e910.png)
 
 see my linkedin: https://www.linkedin.com/in/rodrigo-jikal/
