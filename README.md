@@ -14,9 +14,13 @@ Project Contributors:
  
 see my linkedin: https://www.linkedin.com/in/luan-perosa/
 
+my Github: https://wwwlgithub.com/luanperosa
+
 
 <h3>Rodrigo Jikal</h3>
 
 ![image](https://user-images.githubusercontent.com/50602816/65395077-5db72180-dd6c-11e9-8638-27116a20e910.png)
 
 see my linkedin: https://www.linkedin.com/in/rodrigo-jikal/
+
+my Github: https:/www/github.com/jegarin
