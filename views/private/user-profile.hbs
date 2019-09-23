@@ -1,12 +1,21 @@
-<h1> Olá {{ this.userName }}! Confira sua agenda de serviços e atualize seus dados <h1>
+{{> navPartial }}
 
-<h3>Minha agenda</h3>
+<div class="container">
 
-<h3><a href='/user/{{ this._id }}/edit '>Atualizar meus dados</a></h3>
+<h4> Olá <span class="red-text text-lighten-3">{{ this.userName }}</span>! Confira sua agenda de serviços e atualize seus dados </h4>
+
+<p>Minha agenda</p>
+
+<p><a href='/user/{{ this._id }}/edit '>Atualizar meus dados</a></p>
 
 <p>Voltar para a <a href="/">página inicial</a></p>
 
-<p><a href="/owner">I am saloon owner</a></p>
+<p class=""><a href="/owner/add-saloon">Cadastrar meu salão</a></p>
+
+<p><a href="/owner">Possuo estabelecimento cadastrado</a></p>
+
+
+</div>
 
 
 

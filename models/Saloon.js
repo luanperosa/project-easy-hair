@@ -12,10 +12,9 @@ const newSaloon = new Schema({
   },
   contactNumber: { type: Number, required: true },
   businessHours: { type: String, required: true },
-  imageSlideShow: { type: String, required: true },
+  imageSlideShow: { type: String, required: false },
   imageGalery: [{ linkImage: String, nameImage: String }],
-  linkInstagran: { type: String },
-  serviceID: { type: Schema.Types.ObjectId, ref: 'Service' },
+  linkInstagram: { type: String },
   userID: { type: Schema.Types.ObjectId, ref: 'User' },
 },
 {
