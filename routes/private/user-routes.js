@@ -1,14 +1,14 @@
 const express = require('express');
+const router = express.Router();
 const bcrypt = require('bcrypt');
 const ensureLogin = require('connect-ensure-login');
 const User = require('../../models/User');
 
+// user with bcript
 const saltRounds = 10;
 
-const router = express.Router();
 
-
-// user/
+// user
 router.get('/profile', ensureLogin.ensureLoggedIn(), async (req, res) => {
   // const { currentUser } = req.session;
   // console.log(`rota privada usuário logado ${currentUser.userName}`);

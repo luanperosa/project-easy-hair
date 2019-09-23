@@ -26,7 +26,7 @@ router.post('/:id/create-schedule', async (req, res) => {
   // if(!scheduleBody) {
   //   res.render('private/confirm-schedules', { errorMessage: 'Dados insuficientes, preencher todos os dados'});
   // }
-  
+  //
   try {
     const newSchedule = await Schedule.create({ dateOfService: fullDate });
     res.render('private/confirm-schedule', { message: `Agendamento criado com sucesso <br /> ${newSchedule}` });

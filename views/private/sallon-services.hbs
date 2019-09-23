@@ -1,0 +1,28 @@
+<h1>Serviços prestados pelo Salão</h1>
+
+<h2>Criar novo serviço</h2>
+<p>id do sallon está sendo passado no action, implementar dinamicamente</p>
+<form action="5d87c790e42ad60351ce4f00/create" method="post">
+  <input type="text" name="serviceName" placeholder="Digite o nome do serviço" />
+  <input type="number" name="serviceDuration" placeholder="Qual o tempo de duração" />
+  <input type="number" name="servicePrice" placeholder="Preço do serviço" />
+  <input type="number" name="serviceOrder" placeholder="Prioridade em aparecer" />
+  <button type="submit">Criar Serviço</button>
+</form>
+<p>editar não implementado</p>
+  <ul>
+    {{#each services }}
+      <li>
+      Tipo de Serviço: {{serviceName}} 
+      <button><a href="#">Editar</a></button>
+      </li>
+    {{/each}}
+  </ul>
+
+{{#if errorMessage}}
+  <p>{{errorMessage}}</p>
+{{/if}}
+
+{{#if message}}
+  <p>{{message}}</p>
+{{/if}}
