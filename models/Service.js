@@ -5,7 +5,7 @@ const newService = new Schema({
   serviceDuration: { type: Number },
   servicePrice: { type: Number, required: true },
   serviceOrder: { type: Number, default: 0 },
-  saloonID: { type: Schema.Types.ObjectId, ref: 'Saloon' },
+  saloonId: { type: Schema.Types.ObjectId, ref: 'Saloon' },
 },
 {
   timestamps: true,

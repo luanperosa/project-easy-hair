@@ -15,7 +15,6 @@ const newSaloon = new Schema({
   imageSlideShow: { type: String, required: true },
   imageGalery: [{ linkImage: String, nameImage: String }],
   linkInstagran: { type: String },
-  serviceID: { type: Schema.Types.ObjectId, ref: 'Service' },
   userID: { type: Schema.Types.ObjectId, ref: 'User' },
 },
 {
