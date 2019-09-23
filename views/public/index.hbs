@@ -1,11 +1,10 @@
+{{> navPartial }}
 <h1>Welcome to Easy Hair</h1>
 
-{{#unless req.user}}
-  <a href="/login">Log in Now!</a>
-  <a href="/signup">Signup</a>
-{{else}}
-  <a href="/user/profile">{{ req.user.userName }}</a>
-  <a href="/logout">Logout</a>
-{{/unless}}
-
-{{ req.user.userName }}
+  {{#unless req.user}}
+  <li><a href="/login">Entrar</a></li>
+  <li><a href="/signup">Cadastrar</a></li>
+  {{else}}
+  <li><a href="/user/profile">{{ req.user.userName }}</a></li>
+  <li><a href="/logout">Sair</a></li>
+  {{/unless}}

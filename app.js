@@ -10,6 +10,7 @@ const path = require('path');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
+const hbs = require('hbs');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore = require('connect-mongo')(session);
 const User = require('./models/User');
@@ -30,6 +31,7 @@ passport.serializeUser((user, cb) => {
 });
 
 passport.deserializeUser((id, cb) => {
+  // eslint-disable-next-line consistent-return
   User.findById(id, (err, user) => {
     if (err) { return cb(err); }
     cb(null, user);
@@ -78,7 +80,8 @@ app.use(passport.session());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+hbs.registerPartials(`${__dirname}/views/partials`);
+//  app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 const index = require('./routes/public/index');
 const authRoutes = require('./routes/public/auth-routes');

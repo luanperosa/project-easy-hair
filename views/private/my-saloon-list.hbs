@@ -1,0 +1,19 @@
+{{> navPartial }}
+ <div class="container">
+   <p><a href="/owner"></a>Voltar para página de perfil</p>
+  <div class="row">
+{{#each saloonByOwner }}
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <a href="/owner/my-saloon/{{this._id}}"><span class="card-title">{{ this.saloonName }}</span></a>
+          <p>Horário de Funcionamento {{ this.businessHours }}</p>
+          <br>
+          <p>Endereço: {{ this.address.street }} - {{ this.address.city }} - {{ this.address.state}} - {{ this.address.zipcode }}</p>
+        </div>
+      </div>
+    </div>
+{{/each}}    
+  </div>
+ </div>
+

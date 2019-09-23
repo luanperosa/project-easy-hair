@@ -1,26 +1,47 @@
-<h1>Cadastre-se</h1>
-
-<form action="/signup" method="POST">
-  <label for="name">Nome Completo</label>
-  <input id="name" type="text" name="userName" placeholder="Nome Completo">
-  <br>
-  <label for="email">Email</label>
-  <input id="email" type="text" name="userEmail" placeholder="Email">
-  <br>
-  <label for="cellphone">Celular</label>
-  <input id="cellphone" type="text" name="cellphone" placeholder="Celular">
-  <br>
-  <label for="password">Senha</label>
-  <input id="password" type="password" name="password" placeholder="Senha">
-  <br>
-
-  {{#if errorMessage}}
-    <p>{{errorMessage}}</p>
-  {{/if}}
+{{> navPartial }}
+  <div class="row container red lighten-5">
+    <h2 class="center">Cadastre-se</h2>
+    <form class="col s8 offset-s2" action="/signup" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Nome Completo" id="name" name="userName" type="text" class="validate">
+          <label for="name">Nome Completo</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="DDD + Celular" id="cellphone" name="cellphone" type="tel" class="validate">
+          <label for="cellphone">Celular</label>
+          <span class="helper-text" data-error="wrong" data-success="right">Siga esse formato: (xx) 12345-1234</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+           {{!-- type="email" class="validate" --}}
+          <input placeholder="Email" id="email" name="userEmail" type="text">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Confirmação do Email" id="email-confirmation" type="text">
+          <label for="email-confirmation">Confirmação de Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" name="password"  type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      {{#if errorMessage}}
+      <p>{{errorMessage}}</p>
+      {{/if}}
   
-  <button type="submit">Cadastrar</button>
+      <button class="btn waves-effect waves-light" type="submit">Cadastrar <i class="material-icons right">send</i></button>
   
-  <p class="account-message">Você já possui uma conta? <a href="/login">Entre aqui.</a></p>
+      <p class="account-message">Você já possui uma conta? <a href="/login">Entre aqui.</a></p>
   
-  <p>Voltar para a <a href="/">página inicial</a></p>
-</form>
+      <p>Voltar para a <a href="/">página inicial</a></p>
+    </form>
+  </div>

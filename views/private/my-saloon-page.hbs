@@ -1,0 +1,17 @@
+{{> navPartial }}
+<div class="container">
+  <p><a href="/owner/my-saloon">Voltar para meu(s) estabelecimento(s)</a></p>
+  <h3>{{ saloonName }}</h3> 
+  {{#with address}}
+  <p>{{ street }} - {{ city }} - {{ state }} - {{ zipcode }}</p> 
+  {{/with}}
+
+</div>
+
+<div class="container">
+      <a href="/owner/my-saloon/{{ this._id }}/edit"><p class="btn-small waves-effect waves-light blue darked-4">Editar este salão</p></a> 
+</div>
+
+<div class="container">
+
+</div>

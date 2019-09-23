@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const Schedule = require('../../models/Schedule');
 
@@ -30,8 +31,8 @@ router.post('/:id/create-schedule', async (req, res) => {
     const newSchedule = await Schedule.create({ dateOfService: fullDate });
     res.render('private/confirm-schedule', { message: `Agendamento criado com sucesso <br /> ${newSchedule}` });
   } catch (error) {
-    throw new Error(error);
-    res.render('private/confirm-schedule', { server: `${error}` });
+    console.log(error)
+    // res.render('private/confirm-schedule', { server: `${error}` });
   }
 });
 

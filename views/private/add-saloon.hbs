@@ -1,0 +1,60 @@
+{{> navPartial}}
+
+<div class="row container red lighten-5">
+    <h2 class="center">Cadastrar meu salão</h2>
+    <form class="col s8 offset-s2" action="/owner/add-saloon" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Nome do Estabelecimento" id="saloonName" name="saloonName" type="text" class="validate">
+          <label for="saloonName">Nome do Estabelecimento</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Email" id="saloonEmail" name="saloonEmail" type="email" class="validate">
+          <label for="saloonEmail">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Telefone para contato" id="contactNumber" name="contactNumber" type="tel" class="validate">
+          <label for="contactNumber">Telefone</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea placeholder="Horário de Funcionamento" id="openingHours" name="businessHours" type="text" class="validate"></textarea>
+          <label for="openingHours">Horário de Funcionamento</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Endereço" id="street" name="street" type="text" class="validate">
+          <label for="street">Endereço</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="CEP" id="zipcode" name="zipcode" type="text" class="validate">
+          <label for="zipcode">CEP</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="city" name="city" type="text" class="validate">
+          <label for="city">Cidade</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="state" name="state" type="text" class="validate">
+          <label for="state">Estado</label>
+        </div>
+      </div>
+      
+      {{#if errorMessage}}
+      <p>{{errorMessage}}</p>
+      {{/if}}
+  
+      <button class="btn waves-effect waves-light" type="submit">Cadastrar meu salão<i class="material-icons right">send</i></button>
+    </form>
+  </div>
+  <div class="container">
+    <p class="left">Voltar para o <a href="/owner"> meu perfil</a></p>
+  </div>
