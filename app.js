@@ -88,7 +88,7 @@ const authRoutes = require('./routes/public/auth-routes');
 const userRoutes = require('./routes/private/user-routes');
 const ownerRoutes = require('./routes/private/owner-routes');
 const scheduleRoutes = require('./routes/private/schedule-routes');
-const servicesRoutes = require('./routes/private/services-routes')
+const servicesRoutes = require('./routes/private/services-routes');
 
 app.use('/', index);
 app.use('/', authRoutes);
