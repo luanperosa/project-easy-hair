@@ -2,6 +2,7 @@ const express = require('express');
 const ensureLogin = require('connect-ensure-login');
 const checkRole = require('../../middlewares/passport-middleware');
 const Saloon = require('../../models/Saloon');
+const Service = require('../../models/Service');
 
 const router = express.Router();
 
@@ -20,19 +21,17 @@ router.get('/add-saloon', ensureLogin.ensureLoggedIn(), (req, res) => {
 });
 
 router.post('/add-saloon', ensureLogin.ensureLoggedIn(), async (req, res) => {
-  console.log(`esse é o req.body.saloonName: ${req.body.saloonName}`);
-  console.log(`esse é o req.body.userID: ${req.body.userID}`);
-  const { userID } = req.body;
+  const userID = req.user._id;
   const {
     saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
   } = req.body;
   const newSaloon = new Saloon({
-    saloonName, saloonEmail, contactNumber, businessHours, 'address.street': street, 'address.zipcode': zipcode, 'address.city': city, 'address.state': state,
+    saloonName, saloonEmail, contactNumber, businessHours, 'address.street': street, 'address.zipcode': zipcode, 'address.city': city, 'address.state': state, userID,
   });
+  console.log(`This is the newSaloon: ${newSaloon}`)
   try {
     await newSaloon.save();
-    res.redirect('/');
-    console.log(`esse é o req.body.userID: ${userID}`);
+    res.redirect('/owner');
   } catch (error) {
     throw new Error(error);
   }
@@ -43,7 +42,7 @@ router.get('/my-saloon', checkOwner, async (req, res) => {
   console.log(`This is userID: ${userID}`);
   try {
     //  coloquei userID no Saloon manualmente. Pois o campo userID está diferente para cada salão.
-    const saloonByOwner = await Saloon.find();
+    const saloonByOwner = await Saloon.find({ userID });
     // console.log(`this is saloonByOwner variable: ${saloonByOwner}`);
     res.render('private/my-saloon-list', { saloonByOwner });
   } catch (error) {
@@ -56,8 +55,9 @@ router.get('/my-saloon/:id', checkOwner, async (req, res) => {
   console.log(`This is the is req.params.id: ${id}`)
   try {
     const currentSaloon = await Saloon.findById(id);
+    const listOfServices = await Service.find({ 'saloonId': id });
     console.log(`This is the currentSaloon: ${currentSaloon}`);
-    res.render('private/my-saloon-page', currentSaloon);
+    res.render('private/my-saloon-page', { currentSaloon, listOfServices });
   } catch (error) {
     throw new Error(error);
   }
