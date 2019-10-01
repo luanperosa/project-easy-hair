@@ -35,4 +35,32 @@ router.post('/:saloonId/add', async (req, res) => {
   }
 });
 
+router.get('/:id/edit', async (req, res) => {
+  const serviceId = req.params.id;
+  try {
+    const currentService = await Service.findById(serviceId);
+    res.render('private/services/edit-service', { currentService });
+    console.log(`currentService is ${currentService}`);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+router.post('/:id', async (req, res) => {
+  const {
+    serviceName, serviceDuration, servicePrice, serviceOrder,
+  } = req.body;
+  const currentId = req.params.id;
+  try {
+    const newService = await Service.findByIdAndUpdate(currentId, {
+      serviceName, serviceDuration, servicePrice, serviceOrder,
+    });
+    console.log(`This is the new Service: ${newService}`);
+    res.redirect(`/owner/my-saloon/${newService.saloonId}`);
+    
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 module.exports = router;
