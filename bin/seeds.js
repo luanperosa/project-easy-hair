@@ -24,4 +24,10 @@ const newSallon = new Sallon({
 })
 
 
-newSallon.save();
+User.findById('5d7eebf8950a7d0ff79208e6')
+  .then(resposta => {
+    console.log(resposta.createdAt.getHours())
+    console.log(resposta.createdAt.getTime())
+    console.log(resposta.createdAt.getDate())
+  })
+
