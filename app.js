@@ -89,6 +89,7 @@ const userRoutes = require('./routes/private/user-routes');
 const ownerRoutes = require('./routes/private/owner-routes');
 const scheduleRoutes = require('./routes/private/schedule-routes');
 const servicesRoutes = require('./routes/private/services-routes');
+const visitorRouter = require('./routes/public/visitor-routes');
 
 app.use('/', index);
 app.use('/', authRoutes);
@@ -96,6 +97,7 @@ app.use('/user', userRoutes);
 app.use('/owner', ownerRoutes);
 app.use('/schedules', scheduleRoutes);
 app.use('/services', servicesRoutes);
+app.use('/visitor', visitorRouter);
 
 app.listen(process.env.PORT, () => {
   console.log('Server listen', process.env.PORT);

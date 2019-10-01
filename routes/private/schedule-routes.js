@@ -1,17 +1,17 @@
 const express = require('express');
 const date = require('date-and-time');
 const router = express.Router();
+const ensureLogin = require('connect-ensure-login');
 const Schedule = require('../../models/Schedule');
 const Service = require('../../models/Service');
 const Saloon = require('../../models/Saloon');
 
-router.get('/:saloonID/:serviceID/create-schedule', (req, res) => {
+router.get('/:saloonID/:serviceID/create-schedule', ensureLogin.ensureLoggedIn(), (req, res) => {
   const currentSaloon = req.params.saloonID;
   const currentService = req.params.serviceID;
   const { currentUser } = req.session;
-  console.log('currentSaloon, currentService ', currentSaloon, currentService)
   res.render('private/confirm-schedule', { currentSaloon, currentService });
-})
+});
 
 
 router.post('/:saloonID/:serviceID/create-schedule', async (req, res) => {
