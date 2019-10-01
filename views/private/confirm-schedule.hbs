@@ -1,37 +1,33 @@
-{{!-- <form action="/schedules/5d7edcf3dd648d13809509b6/create-schedule" method="post">
-  <input type="date" name="dateOfService" >
-  <input type="datetime" name="timeOfService" >
-  <input type="number" name="saloonID" >
-  <input type="number" name="userID" >
-  <input type="number" name="serviceID" >
-  <button type="submit">Agendar</button>
-</form> --}}
-<div class="rol">
-  <div class="col s12">
-  <form action="/schedules/5d82a372d3bfa431aafdd13c/create-schedule" class="col s12" method="post" >
+{{> navPartial}}
 
-  <div class="input-field col s12">
-  <h1>Novo Calendario</h1>
-  <input type="text" name="dateOfService" id="calendar">
-  <input type="time" name="timeOfService" id="hour-service" >
-  <button type="submit">Save</button>
-  </div>
-  </form>
+<div class="row container red lighten-5">
+    <h2 class="center">Agendar horario</h2>
+    <form class="col s8 offset-s2" action="/schedules/{{currentSaloon}}/{{currentService}}/create-schedule" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Escolha data" type="date" name="dateOfService" class="datepicker">
+          <label for="dateOfService">Preencha a data</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Preencha as horas"  name="timeOfService" type="time" class="timepicker">
+          <label for="timeOfService">Horario</label>
+        </div>
+      </div>
+      
+      
+      {{#if errorMessage}}
+      <p>{{errorMessage}}</p>
+      {{/if}}
 
-  </div>
-</div>
-
-
-{{#if errorMessage}}
-  <p>{{errorMessage}}</p>
-{{/if}}
-{{#if message}}
-  <p>{{message}}</p>
-{{/if}}
-{{#if error}}
-  <p>{{error}}</p>
-{{/if}}  
-
-
-
+      {{#if message}}
+      <p>{{message}}</p>
+      {{/if}}
   
+      <button class="btn waves-effect waves-light" type="submit">Confirmar agendamento<i class="material-icons right">send</i></button>
+    </form>
+  </div>
+  <div class="container">
+    <p class="left">Voltar para o <a href="/index"> meu perfil</a></p>
+  </div>
