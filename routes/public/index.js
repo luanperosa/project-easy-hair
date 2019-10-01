@@ -1,4 +1,5 @@
 const express = require('express');
+const Saloon = require('../../models/Saloon');
 
 const router = express.Router();
 
@@ -10,3 +11,14 @@ router.get('/', (req, res) => {
 });
 
 module.exports = router;
+
+
+router.get('/home', async (req, res) => {
+  try {
+    const listOfSaloon = await Saloon.find({});
+    // console.log(`This it the listOfSaloon: ${listOfSaloon}`);
+    res.render('public/index', { listOfSaloon });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
