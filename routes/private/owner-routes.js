@@ -67,8 +67,8 @@ router.get('/my-saloon/:id/edit', checkOwner, async (req, res) => {
   const { id } = req.params;
   try {
     const saloon = await Saloon.findById(id);
-    console.log(`This is the id from saloon edit route ${id}`)
-    console.log(`This is the saloon edit route ${saloon}`)
+    console.log(`This is the id from saloon edit route ${id}`);
+    console.log(`This is the saloon edit route ${saloon}`);
     res.render('private/my-saloon-edit', saloon);
   } catch (error) {
     throw new Error(error);

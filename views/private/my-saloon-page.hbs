@@ -10,9 +10,12 @@
 <div class="container">
   <ul>
   {{#each listOfServices}}
-    <li>{{ serviceName }}</li>
-    <li>{{ serviceDuration }}</li>
-    <li>{{ servicePrice }}</li>
+    <li><h5>{{ serviceName }}</h5></li>
+    <li>Duração(min): {{ serviceDuration }}</li>
+    <li>R$ {{ servicePrice }}</li>
+    <div class="valign-wrapper container">
+      <a href="/services/{{ _id }}/edit"><p class="btn-small waves-effect waves-light deep-orange lighten-3 al"><i class="small material-icons">edit</i></p></a> 
+    </div>
   {{/each}}
   </ul>
 </div>
@@ -24,3 +27,4 @@
 <div class="container">
       <a href="/services/{{ currentSaloon._id }}/add"><p class="btn-small waves-effect waves-light deep-orange lighten-3">Adicionar Serviços</p></a> 
 </div>
+
