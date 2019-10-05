@@ -5,7 +5,7 @@
     <p class="right"><a href='/owner/edit-password '>Alterar minha senha</a></p>
   </div>
 
-  <form class="col s8 offset-s2" action="/owner/my-saloon/{{this._id}}/edit" method="POST">
+  <form class="col s8 offset-s2" action="/owner/my-saloon/{{this._id}}/edit" method="POST" enctype="multipart/form-data">
    <div class="row">
         <div class="input-field col s12">
           <input placeholder="Nome do Estabelecimento" id="saloonName" name="saloonName" type="text" class="validate" value="{{ this.saloonName }}">
@@ -48,6 +48,12 @@
         <div class="input-field col s2">
           <input id="state" name="state" type="text" class="validate" value="{{ address.state }}">
           <label for="state">Estado</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Imagem" id="image" name="photo" type="file">
+          <label for="image"></label>
         </div>
       </div>
       

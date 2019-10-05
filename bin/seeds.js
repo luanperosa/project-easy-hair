@@ -19,7 +19,7 @@ const newSallon = new Sallon({
   },
   contactNumber: 33444443,
   businessHours: '33',
-  imageSlideShow: 'https://avatars0.githubusercontent.com/u/50602816?v=4',
+  imageName: 'https://avatars0.githubusercontent.com/u/50602816?v=4',
   userID: '5d80292d351fe911b5d3b917'
 })
 

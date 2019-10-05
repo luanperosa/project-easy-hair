@@ -1,6 +1,7 @@
 const express = require('express');
 const ensureLogin = require('connect-ensure-login');
 const checkRole = require('../../middlewares/passport-middleware');
+const uploadCloud = require('../../config/cloudinary');
 const Saloon = require('../../models/Saloon');
 const Service = require('../../models/Service');
 const User = require('../../models/User');
@@ -22,13 +23,15 @@ router.get('/add-saloon', ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render('private/saloon/add-saloon');
 });
 
-router.post('/add-saloon', ensureLogin.ensureLoggedIn(), async (req, res) => {
+router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('photo'), async (req, res) => {
   const userID = req.user._id;
   const {
     saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
   } = req.body;
+  const imageName = req.file.originalname;
+  const imagePath = req.file.url;
   const newSaloon = new Saloon({
-    saloonName, saloonEmail, contactNumber, businessHours, 'address.street': street, 'address.zipcode': zipcode, 'address.city': city, 'address.state': state, userID,
+    saloonName, saloonEmail, contactNumber, businessHours, 'address.street': street, 'address.zipcode': zipcode, 'address.city': city, 'address.state': state, imageName, imagePath, userID,
   });
   if (req.user.role === 'Customer') {
     await User.findByIdAndUpdate(userID, { role: 'Owner' });
@@ -80,14 +83,13 @@ router.get('/my-saloon/:id/edit', checkOwner, async (req, res) => {
   }
 });
 
-router.post('/my-saloon/:id/edit', checkOwner, async (req, res) => {
+router.post('/my-saloon/:id/edit', checkOwner, uploadCloud.single('photo'), async (req, res) => {
   const { id } = req.params;
   const {
     saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
   } = req.body;
-  // const saloon = {
-  //   saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
-  // }
+  const imageName = req.file.originalname;
+  const imagePath = req.file.url;
 
   if (saloonName === '' || saloonEmail === '' || contactNumber === '') {
     res.render('private/user/user-edit', { errorMessage: 'Todos os campos devem ser preenchidos' });
@@ -96,7 +98,7 @@ router.post('/my-saloon/:id/edit', checkOwner, async (req, res) => {
 
   try {
     await Saloon.findByIdAndUpdate(id, {
-      saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
+      saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state, imageName, imagePath,
     });
     res.redirect('/owner/my-saloon');
   } catch (error) {
