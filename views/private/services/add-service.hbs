@@ -1,5 +1,3 @@
-{{> navPartial}}
-
 <div class="row container red lighten-5">
     <h2 class="center">Cadastrar serviço</h2>
     <form class="col s8 offset-s2" action="/services/{{ currentSaloon }}/add" method="POST">
@@ -11,7 +9,7 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Duração do Serviço" id="serviceDuration" name="serviceDuration" type="number" class="validate">
+          <input placeholder="Duração do Serviço" id="serviceDuration" name="serviceDuration" type="number" class="validate" min="15" step="15" list="defaultNumbers">
           <label for="serviceDurantion">Duração do Serviço</label>
         </div>
       </div>
@@ -28,13 +26,26 @@
         </div>
       </div>
       
-      {{#if errorMessage}}
-      <p>{{errorMessage}}</p>
-      {{/if}}
-  
+	<div class="container">
+		{{#if error}}
+      <div class="card-panel red lighten-4">{{error}}</div>
+		{{/if}}
+	  {{#if success}}
+		  <div class="card-panel teal lighten-4">{{success}}</div>
+		{{/if}}
+	</div>
+
       <button class="btn waves-effect waves-light" type="submit">Cadastrar este Serviço<i class="material-icons right">send</i></button>
     </form>
   </div>
   <div class="container">
     <p class="left">Voltar para o <a href="/owner/my-saloon/{{this._id}}"> meu perfil</a></p>
   </div>
+
+<datalist id="defaultNumbers">
+  <option value="15">
+  <option value="30">
+  <option value="45">
+  <option value="60">
+  <option value="90">
+</datalist>

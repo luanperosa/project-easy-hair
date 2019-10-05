@@ -1,6 +1,5 @@
-{{> navPartial }}
- <div class="container">
-   <p><a href="/owner"></a>Voltar para página de perfil</p>
+<div class="container">
+   <p>Voltar para <a href="/user/profile">página de perfil</a></p>
   <div class="row">
 {{#each saloonByOwner }}
     <div class="col s12 m6">
@@ -11,9 +10,12 @@
           <br>
           <p>Endereço: {{ this.address.street }} - {{ this.address.city }} - {{ this.address.state}} - {{ this.address.zipcode }}</p>
         </div>
+        <div class="card-action">
+          <a href="/owner/my-saloon/{{this._id}}/schedule">Ver serviços agendados</a>
+        </div>
       </div>
     </div>
 {{/each}}    
   </div>
- </div>
+</div>
 

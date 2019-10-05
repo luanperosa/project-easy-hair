@@ -1,9 +1,10 @@
-{{> navPartial }}
-
 <div class="container">
 
-<h4> Olá <span class="red-text text-lighten-3">{{ this.userName }}</span>! Confira sua agenda de serviços e atualize seus dados </h4>
+<h4> Olá <span class="red-text text-lighten-3">{{ currentUser.userName }}</span>! Confira sua agenda de serviços e atualize seus dados </h4>
 
+{{#if success}}
+  <div class="card-panel teal lighten-4">{{success}}</div>
+{{/if}}
 <p><a href="/schedules/my-schedule">Minha agenda</a></p>
 
 <p><a href='/user/{{ this._id }}/edit '>Atualizar meus dados</a></p>
@@ -12,10 +13,9 @@
 
 <p class=""><a href="/owner/add-saloon">Cadastrar meu salão</a></p>
 
-<p><a href="/owner">Possuo estabelecimento cadastrado</a></p>
 
-
+{{#equal currentUser.role 'Owner'}}
+<p><a href="/owner/my-saloon">Ver meu(s) salão(ões)</a></p>
+{{/equal}}
 </div>
-
-
 

@@ -22,13 +22,15 @@ router.post('/:saloonId/add', async (req, res) => {
   const { saloonId } = req.params;
   console.log(`this is the req.params2: ${req.params.saloonId}`);
   if (!serviceName || !serviceDuration || !servicePrice || !serviceOrder ) {
-    res.render('private/sallon-services', { errorMessage: 'Todos os campos devem ser preenchidos' });
+    req.flash('error', 'Todos os campos devem ser preenchidos');
+    res.redirect('back');
   }
 
   try {
     const newService = await Service.create({ 
       serviceName, serviceDuration, servicePrice, serviceOrder, saloonId,
     });
+    req.flash('success', 'Serviço adicionado com sucesso');
     res.redirect(`/owner/my-saloon/${newService.saloonId}`);
   } catch (error) {
     throw new Error(error);

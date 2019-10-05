@@ -9,7 +9,6 @@ const Saloon = require('../../models/Saloon');
 router.get('/:saloonID/:serviceID/create-schedule', ensureLogin.ensureLoggedIn(), (req, res) => {
   const currentSaloon = req.params.saloonID;
   const currentService = req.params.serviceID;
-  const { currentUser } = req.session;
   res.render('private/confirm-schedule', { currentSaloon, currentService });
 });
 
@@ -33,17 +32,20 @@ router.post('/:saloonID/:serviceID/create-schedule', async (req, res) => {
   
   try {
     const newSchedule = await Schedule.create({ dateOfService: fullDate, saloonID, userID, serviceID });
-    res.render('private/confirm-schedule', { message: `Agendamento criado com sucesso <br /> ${newSchedule}` });
+    // res.render('private/confirm-schedule', { message: `Agendamento criado com sucesso <br /> ${newSchedule}` });
+    req.flash('success', 'Agendamento criado com sucesso');
+    res.redirect('/user/profile');
   } catch (error) {
     throw new Error(error)
   }
 });
-  //rota de busca da agenda não implementada corretamente
+
+
 router.get('/my-schedule', async (req, res) => {
   const userID = req.user._id;
 
-  if(!userID) {
-    res.render('private/my-schedule', { errorMessage: `Usuario ${userID} inexistente` })
+  if (!userID) {
+    res.render('private/my-schedule', { errorMessage: `Usuario ${userID} inexistente` });
   }
 
   try {
@@ -51,26 +53,25 @@ router.get('/my-schedule', async (req, res) => {
     let currentObject = [{
       date: String,
       service: String,
-      sallon: String,
+      saloon: String,
     }];
     let arrayObject = [];
-    for(let i = 0; i<scheduleUser.length; i++) {
-    let serv =  await Service.findById(scheduleUser[i].serviceID);
-    let sall = await Saloon.findById(scheduleUser[i].saloonID);
+    for (let i = 0; i < scheduleUser.length; i += 1) {
+      let serv =  await Service.findById(scheduleUser[i].serviceID);
+      let sal = await Saloon.findById(scheduleUser[i].saloonID);
 
-    currentObject = new Object({
-      date: scheduleUser[i].dateOfService,
-      service: serv.serviceName,
-      sallon: sall.saloonName
-    })
-    arrayObject.push(currentObject)
+      currentObject = new Object({
+        date: scheduleUser[i].dateOfService,
+        service: serv.serviceName,
+        saloon: sal.saloonName,
+        saloonID: sal._id,
+      });
+      arrayObject.push(currentObject);
     }
-    console.log('vamo pelamor de Deus', arrayObject)
-    
-    res.render('private/my-schedule', { arrayObject })
+    res.render('private/my-schedule', { arrayObject });
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-})
+});
 
 module.exports = router;

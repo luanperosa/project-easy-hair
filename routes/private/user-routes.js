@@ -12,7 +12,7 @@ const saltRounds = 10;
 router.get('/profile', ensureLogin.ensureLoggedIn(), async (req, res) => {
   // const { currentUser } = req.session;
   // console.log(`rota privada usuário logado ${currentUser.userName}`);
-  // console.log(`This is the req.user in GET /profile: ${req.user}`);
+  console.log(`This is the req.user in GET /profile: ${req.user}`);
   res.render('private/user-profile', req.user);
 });
 
@@ -20,7 +20,7 @@ router.get('/:id/edit', ensureLogin.ensureLoggedIn(), async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);
-    res.render('private/user-edit', user);
+    res.render('private/user/user-edit', user);
   } catch (error) {
     throw new Error(error);
   }
@@ -34,7 +34,7 @@ router.post('/:id/edit', ensureLogin.ensureLoggedIn(), async (req, res) => {
   };
 
   if (userName === '' || userEmail === '' || cellphone === '') {
-    res.render('private/user-edit', { user, errorMessage: 'Todos os campos devem ser preenchidos' });
+    res.render('private/user/user-edit', { user, errorMessage: 'Todos os campos devem ser preenchidos' });
     return;
   }
 
@@ -57,7 +57,7 @@ router.post('/:id/delete', ensureLogin.ensureLoggedIn(), async (req, res) => {
 });
 
 router.get('/edit-password', ensureLogin.ensureLoggedIn(), (req, res) => {
-  res.render('private/user-edit-password', req.user);
+  res.render('private/user/user-edit-password', req.user);
   // eslint-disable-next-line no-console
   console.log(`This is the req.user in GET /edit-password: ${req.user}`);
 });
@@ -68,11 +68,11 @@ router.post('/edit-password/:id', ensureLogin.ensureLoggedIn(), async (req, res)
   const { passwordConfirmation } = req.body;
 
   if (password === '' || passwordConfirmation === '') {
-    res.render('private/user-edit-password', { errorMessage: 'É necessário preencher os dois campos' });
+    res.render('private/user/user-edit-password', { errorMessage: 'É necessário preencher os dois campos' });
     return;
   }
   if (password !== passwordConfirmation) {
-    res.render('private/user-edit-password', { errorMessage: 'A senha de confirmação não é a mesma que a nova senha' });
+    res.render('private/user/user-edit-password', { errorMessage: 'A senha de confirmação não é a mesma que a nova senha' });
     return;
   }
 
