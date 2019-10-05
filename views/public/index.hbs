@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>Bem vindo ao Easy Hair</h1>
+
+  <p>This is the currentUser{{ currentUser }}</p>
+
+  {{!-- {{#unless req.user}}
+  <li><a href="/login">Entrar</a></li>
+  <li><a href="/signup">Cadastrar</a></li>
+  {{else}}
+  <li><a href="/user/profile">{{ req.user.userName }}</a></li>
+  <li><a href="/logout">Sair</a></li>
+  {{/unless}} --}}
+</div>
+
+<div class="container">
+<div class="row">
+{{#each listOfSaloon}}
+  <div class="col s12 m6">
+    <div class="card blue-grey darken-1">
+      <a href="/visitor/{{ this._id }}">
+      <div class="card-content white-text">
+        <span class="card-title">{{ saloonName }}</span>
+          {{#with address}}
+          <p>{{ street }} - {{ city }} - {{ state }} - {{ zipcode }}</p> 
+          {{/with}}
+      </div>
+      </a>
+    </div>
+  </div>
+{{/each}}
+</div>
+</div>

@@ -1,0 +1,31 @@
+<div class="row container red lighten-5">
+    <h2 class="center">Agendar horario</h2>
+    <form class="col s8 offset-s2" action="/schedules/{{currentSaloon}}/{{currentService}}/create-schedule" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Escolha data" type="date" name="dateOfService" class="datepicker">
+          <label for="dateOfService">Preencha a data</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Preencha as horas"  name="timeOfService" type="time" class="timepicker">
+          <label for="timeOfService">Horario</label>
+        </div>
+      </div>
+      
+      
+      {{#if errorMessage}}
+      <p>{{errorMessage}}</p>
+      {{/if}}
+
+      {{#if message}}
+      <p>{{message}}</p>
+      {{/if}}
+  
+      <button class="btn waves-effect waves-light" type="submit">Confirmar agendamento<i class="material-icons right">send</i></button>
+    </form>
+  </div>
+  <div class="container">
+    <p class="left">Voltar para o <a href="/index"> meu perfil</a></p>
+  </div>

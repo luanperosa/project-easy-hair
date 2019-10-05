@@ -1,0 +1,38 @@
+<div class="row container red lighten-5">
+    <h2 class="center">Editar serviço</h2>
+    <form class="col s8 offset-s2" action="/services/{{ currentService._id }}" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Nome do Serviço" id="serviceName" name="serviceName" type="text" class="validate" value="{{ currentService.serviceName }}">
+          <label for="serviceName">Nome do Serviço</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Duração do Serviço" id="serviceDuration" name="serviceDuration" type="number" class="validate" value="{{ currentService.serviceDuration }}" min="15" step="15">
+          <label for="serviceDurantion">Duração do Serviço</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Preço" id="servicePrice" name="servicePrice" type="number" class="validate" value="{{ currentService.servicePrice }}">
+          <label for="servicePrice">Preço do Serviço</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Ordem do Serviço na Tabela" id="ordem" name="serviceOrder" type="number" class="validate" value="{{ currentService.serviceOrder }}">
+          <label for="ordem">Ordem do Serviço na Tabela</label>
+        </div>
+      </div>
+      
+      {{#if errorMessage}}
+      <p>{{errorMessage}}</p>
+      {{/if}}
+  
+      <button class="btn waves-effect waves-light" type="submit">Salvar<i class="material-icons right">send</i></button>
+    </form>
+  </div>
+  <div class="container">
+    <p class="left">Voltar para o <a href="/owner/my-saloon/{{this._id}}"> meu perfil</a></p>
+  </div>

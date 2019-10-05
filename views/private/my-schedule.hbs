@@ -1,0 +1,29 @@
+<div class="container">
+  <p>Voltar para <a href="/user/profile">página de perfil</a></p>
+  <h3 class="center-align">Meus Serviços Agendados</h3> 
+</div>
+
+<div class="container">
+<table class="highlight">
+  <thead>
+    <tr>
+        <th>Data</th>
+        <th>Serviço</th>
+        <th>Nome do Salão</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {{#each arrayObject }}   
+   <tr>  
+    
+    <td>{{ date }}</td> 
+    <td>{{ service }}</td>
+    <td><a href="/visitor/{{ saloonID }}">{{ saloon }}</a></td>
+  
+    </tr>
+  {{/each}}  
+  </tbody>
+</table>
+
+</div>

@@ -1,0 +1,66 @@
+<div class="container">
+  <p><a href="/owner/my-saloon">Voltar para meu(s) estabelecimento(s)</a></p>
+  
+  {{#if error}}
+    <div class="card-panel red lighten-4">{{error}}</div>
+  {{/if}}
+  {{#if success}}
+    <div class="card-panel teal lighten-4">{{success}}</div>
+  {{/if}}
+</div>
+
+  {{#with currentSaloon }}
+    <div class="container row">
+      <div class="col m6 s12">
+      <h3>{{ saloonName }}</h3>
+    {{#with address}}
+      <p>{{ street }} - {{ city }} - {{ state }} - {{ zipcode }}</p> 
+    {{/with}}
+      <p>{{ businessHours }}</p>
+      <p>{{ saloonEmail }}</p>
+      <p>{{ contactNumber }}</p>
+    </div>
+      <div class="col m6 s12">
+        {{#if imagePath}}
+          <img class="responsive-img" src="{{ imagePath }}" alt="">
+        {{else}}
+          <img id="no-image" class="responsive-img" src="/images/no-image.jpg" alt=""> 
+        {{/if}}
+
+      </div>
+    {{/with }}
+  </div>
+  
+
+
+<div class="container">
+      <a href="/owner/my-saloon/{{ currentSaloon._id }}/edit"><p class="btn-small waves-effect waves-light blue darked-4">Editar este salão</p></a> 
+      <a href="/services/{{ currentSaloon._id }}/add"><p class="btn-small waves-effect waves-light deep-orange lighten-3">Adicionar Serviços</p></a> 
+</div>
+
+<div class="container">
+<table class="highlight">
+  <thead>
+    <tr>
+        <th>Meus Serviços</th>
+        <th>Duração (min)</th>
+        <th>R$</th>
+        <th>Editar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {{#each listOfServices }}   
+   <tr>  
+    
+    <td>{{ serviceName }}</td> 
+    <td>{{ serviceDuration }}</td>
+    <td>{{ servicePrice }}</td>
+    <td><a href="/services/{{ _id }}/edit"><i class="small material-icons">edit</i></a></td>
+    
+    </tr>
+  {{/each}}  
+  </tbody>
+</table>
+
+</div>

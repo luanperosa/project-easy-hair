@@ -1,0 +1,44 @@
+<div class="container">
+{{#with currentSaloon }}
+<h3>{{ saloonName }}</h3>
+  {{#with address}}
+  <p>{{ street }} - {{ city }} - {{ state }} - {{ zipcode }}</p> 
+  {{/with}}
+<p>{{ businessHours }}</p>
+<p>{{ saloonEmail }}</p>
+<p>{{ contactNumber }}</p>
+<img class="responsive-img" src="{{ imagePath }}" alt="">
+{{/with }}
+
+{{!-- {{#each currentService }} 
+  <ul>
+    <li>{{ serviceName }}</li>
+    <li>Duração(min): {{ serviceDuration }}</li>
+    <li>R$: {{ servicePrice }}</li>
+  </ul>
+{{/each}}
+</div> --}}
+
+<table class="highlight">
+  <thead>
+    <tr>
+        <th>Serviço</th>
+        <th>Duração (min)</th>
+        <th>R$</th>
+        <th>Marcar Horário</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {{#each currentService }}   
+   <tr>  
+    
+    <td>{{ serviceName }}</td> 
+    <td>{{ serviceDuration }}</td>
+    <td>{{ servicePrice }}</td>
+    <td><a href="/schedules/{{ saloonId }}/{{ _id }}/create-schedule">Marcar Horário</a></td>
+    
+    </tr>
+  {{/each}}  
+  </tbody>
+</table>
