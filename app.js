@@ -57,11 +57,6 @@ passport.use(new LocalStrategy({
   });
 }));
 
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  next();
-});
-
 // Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json()); // recept req.body with json
@@ -75,12 +70,40 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
+  next();
+});
+
+hbs.registerHelper('equal', function(valueOne, valueTwo, options) {
+  if (arguments.length < 3)
+      throw new Error("Handlebars Helper equal needs 2 parameters");
+  if( valueOne!=valueTwo ) {
+      return options.inverse(this);
+  } else {
+      return options.fn(this);
+  }
+});
+
+hbs.registerHelper('and', function(valueOne, valueTwo, options) {
+  if (arguments.length < 3)
+      throw new Error("Handlebars Helper equal needs 2 parameters");
+  if( valueOne && valueTwo.length > 0 ) {
+      return options.inverse(this);
+  } else {
+      return options.fn(this);
+  }
+});
+
 // Express View engine setup
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
-hbs.registerPartials(`${__dirname}/views/partials`);
+// hbs.registerPartials(`${__dirname}/views/partials`);
+hbs.registerPartials(__dirname + '/views/partials');
 //  app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 const index = require('./routes/public/index');

@@ -1,14 +1,15 @@
-{{> navPartial }}
 <div class="container">
   <h1>Bem vindo ao Easy Hair</h1>
 
-  {{#unless req.user}}
+  <p>This is the currentUser{{ currentUser }}</p>
+
+  {{!-- {{#unless req.user}}
   <li><a href="/login">Entrar</a></li>
   <li><a href="/signup">Cadastrar</a></li>
   {{else}}
   <li><a href="/user/profile">{{ req.user.userName }}</a></li>
   <li><a href="/logout">Sair</a></li>
-  {{/unless}}
+  {{/unless}} --}}
 </div>
 
 <div class="container">
