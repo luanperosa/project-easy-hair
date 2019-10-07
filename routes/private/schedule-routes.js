@@ -23,6 +23,8 @@ router.post('/:saloonID/:serviceID/create-schedule', async (req, res) => {
   
   const fullDate = new Date(`${dateOfService} ${timeOfService}`);
   
+  console.log('timeOfService a ser inserido com fullDate: ', timeOfService)
+  console.log('fullDate a ser inserida no BD: ', fullDate)
   console.log('userID ', userID)
   console.log('saloonID, serviceID ', saloonID, serviceID)
   
@@ -68,6 +70,12 @@ router.get('/my-schedule', async (req, res) => {
       });
       arrayObject.push(currentObject);
     }
+    console.log('Data completa: ',arrayObject[0].date);
+    
+    const currentHour = arrayObject[0].date;
+
+    console.log(currentHour.getHours())
+    
     res.render('private/my-schedule', { arrayObject });
   } catch (error) {
     throw new Error(error);
