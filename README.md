@@ -1,6 +1,8 @@
 # project-easy-hair
 <h2>Ironhack Project module 2 </h2>
 
+https://project-easy-hair.herokuapp.com/home 
+
 Easy Hair is an app that connects clients with hair stylist and beauty salons.
 The client can schedule a specific service, Salon owner can include services, check which clients have scheduled their services.
 
