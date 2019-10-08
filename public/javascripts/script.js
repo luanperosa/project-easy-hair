@@ -1,4 +1,9 @@
 
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems);
+});
+
 // document.addEventListener('DOMContentLoaded', function() {
 //   let elems = document.querySelectorAll('.datepicker');
 //   let instances = M.Datepicker.init(elems, {
