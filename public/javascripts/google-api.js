@@ -122,11 +122,7 @@ function setInitialMap() {
 
 async function addSingleMarker(coords, newLocalSearch) {
   deleteMarkers();
-  // if (typeof newLocalSearch !== 'undefined'){
-  //   icon = 'https://res.cloudinary.com/juliaramosguedes/image/upload/v1569094277/project-vegspot/vegflag.png';
-  // } else {
-  //   icon = 'https://res.cloudinary.com/juliaramosguedes/image/upload/v1569094277/project-vegspot/vegflag.png';
-  // }
+
   const marker = new google.maps.Marker({
     position: coords,
     map,
@@ -201,8 +197,6 @@ function addMarkerPlaces(places) {
     marker[i] = new google.maps.Marker({
       position: position,
       map,
-      // icon
-        // 'https://res.cloudinary.com/juliaramosguedes/image/upload/v1569094277/project-vegspot/vegflag.png',
     });
 
     marker[i].addListener('mouseover', () => {
