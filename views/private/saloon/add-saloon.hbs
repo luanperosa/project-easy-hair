@@ -166,14 +166,23 @@
       {{!-- <br><br> --}}
     <label for="description">Descrição</label><br>
     <textarea name="description" id="description" cols="50" rows="5"></textarea>
-      {{!-- <br><br> --}}
-    <label for="coverPhoto">Selecione uma Foto de Capa</label><br>
-    <input id="coverPhoto" type="file" name="photo" class="">
+      <br>
+     <div class="file-field input-field">
+      <div class="btn">
+  
+        <span>Foto de capa em modo retrato</span>
+        <input type="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" id="coverPhoto" name="photo" >
+      </div>
+    </div>
+    
       {{!-- <br><br> --}}
     {{#if message}}
       <div class="error-message">{{ message }}</div>
     {{/if}}
-    {{!-- <br> --}}
+    <br>
     <input type="hidden" id="saloonPosition" name="saloonPosition" type="text">
     <input type="hidden" id="placeID" name="placeID" type="text">
     <input type="hidden" id="ratingFromGoogle" name="ratingFromGoogle" type="number">
