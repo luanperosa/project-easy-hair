@@ -1,0 +1,385 @@
+let pos;
+let markers = [];
+
+function initMap() {
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    // handleLocationError(false, infoWindow, map.getCenter());
+    pos = {
+      lat: -23.561682,
+      lng: -46.660170,
+    };
+  }
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: -23.561682, lng: -46.660170 },
+    zoom: 17,
+    gestureHandling: 'cooperative',
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+      mapTypeIds: ['roadmap', 'satellite'],
+    },
+    styles: [
+      { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
+      { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
+      { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
+      {
+        featureType: 'administrative.locality',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#d59563' }],
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#d59563' }],
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [{ color: '#263c3f' }],
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#6b9a76' }],
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [{ color: '#38414e' }],
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry.stroke',
+        stylers: [{ color: '#212a37' }],
+      },
+      {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#9ca5b3' }],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [{ color: '#746855' }],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [{ color: '#1f2835' }],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#f3d19c' }],
+      },
+      {
+        featureType: 'transit',
+        elementType: 'geometry',
+        stylers: [{ color: '#2f3948' }],
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#d59563' }],
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [{ color: '#17263c' }],
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#515c6d' }],
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [{ color: '#17263c' }],
+      },
+    ],
+  });
+}
+
+// former function markCurrentLocation 
+function setInitialMap() {
+  const infoWindow = new google.maps.InfoWindow();
+  infoWindow.setPosition(pos);
+  infoWindow.setContent('Você está aqui');
+  infoWindow.open(map);
+  map.setCenter(pos);
+}
+
+async function addSingleMarker(coords, newLocalSearch) {
+  deleteMarkers();
+  // if (typeof newLocalSearch !== 'undefined'){
+  //   icon = 'https://res.cloudinary.com/juliaramosguedes/image/upload/v1569094277/project-vegspot/vegflag.png';
+  // } else {
+  //   icon = 'https://res.cloudinary.com/juliaramosguedes/image/upload/v1569094277/project-vegspot/vegflag.png';
+  // }
+  const marker = new google.maps.Marker({
+    position: coords,
+    map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    icon,
+  });
+  map.setCenter(coords);
+  markers.push(marker); /* WHY? */
+  marker.addListener('click', toggleBounce);
+
+}
+
+function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}  
+
+function addMarker(places) {
+  infoWindow = new google.maps.InfoWindow();
+  const bounds = new google.maps.LatLngBounds();
+  const contentString = [];
+  const marker = [];
+  for (let i = 0; i < places.length; i += 1) {
+    const place = places[i];
+
+    contentString[i] = `
+    <div class = 'marker-title'>${place.title}</div>
+    <div class = 'marker-category'>${place.vegCategory}</div>
+    <div class = 'marker-address'>${place.address}</div>
+    `;
+    marker[i] = new google.maps.Marker({
+      position: place.coord,
+      map,
+      // icon:
+      //   'https://res.cloudinary.com/juliaramosguedes/image/upload/v1569094277/project-vegspot/vegflag.png',
+    });
+
+    marker[i].addListener('mouseover', () => {
+      infoWindow.setContent(contentString[i]);
+      infoWindow.open(map, marker[i]);
+    });
+
+    marker[i].addListener('click', () => {
+      console.log(place);
+    });
+
+    marker[i].addListener('mouseout', () => {
+      infoWindow.close();
+    });
+    bounds.extend(places[i].coord);
+  }
+  map.fitBounds(bounds);
+}
+
+function addMarkerPlaces(places) {
+  const infoWindow = new google.maps.InfoWindow();
+  const bounds = new google.maps.LatLngBounds();
+  const contentString = [];
+  const marker = [];
+  for (let i = 0; i < places.length; i += 1) {
+    const place = places[i];
+    const position = place.geometry.location;
+    // console.log(place.name, place.formatted_address);
+    contentString[i] = `
+    <div>${place.name}</div>
+    <div>${place.formatted_address}</div>
+    `;
+    marker[i] = new google.maps.Marker({
+      position: position,
+      map,
+      // icon
+        // 'https://res.cloudinary.com/juliaramosguedes/image/upload/v1569094277/project-vegspot/vegflag.png',
+    });
+
+    marker[i].addListener('mouseover', () => {
+      infoWindow.setContent(contentString[i]);
+      infoWindow.open(map, marker[i]);
+    });
+
+    marker[i].addListener('click', () => {
+      placeDetails(place.place_id);
+    });
+
+    marker[i].addListener('mouseout', () => {
+      infoWindow.close();
+    });
+    bounds.extend(places[i].geometry.location);
+  }
+  map.fitBounds(bounds);
+}
+
+function deleteMarkers() {
+  if (typeof markers !== 'undefined') {
+  // if (markers.length > 0) {
+  for (let i = 0; i < markers.length; i += 1) {
+    markers[i].setMap(null);
+  }
+  markers = [];
+  }
+}
+
+async function geocode(location) {
+  try {
+    return await axios
+      .get('https://maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+          address: location,
+          key: 'AIzaSyCQpuEpO4UtIbYaCSI_-v9_bBuxOgTMbKw',
+          region: 'br',
+        },
+      });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function findPlaces(text) {
+  const request = {
+    location: pos,
+    radius: '500',
+    query: text,
+    // bounds: 'strictbounds',
+    // type: ['restaurant'],
+  };
+  const service = new google.maps.places.PlacesService(map);
+  await service.textSearch(request, (places, status) => {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      addMarkerPlaces(places);
+      document.getElementById('addList').innerHTML = '';
+      places.forEach((place, index) => {
+        console.log('places', place);
+
+        document.getElementById('addList').innerHTML += `
+        <li class="addPlace">${place.name} ${place.formatted_address} ${place.type}
+        <input type="hidden" value="${index}">
+        <button class="fillListButton btn waves-effect waves-light">Adicionar este endereço</button>
+        </li>
+        `;
+      });
+      const addButton = document.querySelectorAll('.fillListButton');
+      addButton.forEach((button, index) => {
+        button.onclick = function () {
+          // console.log(index);
+          placeDetails(places[index].place_id);
+          map.setCenter(places[index].geometry.location);
+          // addSingleMarker(places[index].geometry.location);
+          document.getElementById('map').scrollIntoView();
+        };
+      });
+    }
+  });
+}
+
+
+function placeDetails(id) {
+  const request = {
+    placeId: id,
+    // fields: ['name', 'rating', 'formatted_phone_number', 'geometry'],
+  };
+
+  service = new google.maps.places.PlacesService(map);
+  service.getDetails(request, callback);
+
+  function callback(place, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      console.log('place details', place);
+      const coord = JSON.parse(JSON.stringify(place.geometry.location).toString());
+      console.log('place coord', coord);
+      let workTime = '';
+      place.opening_hours.weekday_text.forEach((day) => {
+        workTime += `${day.toString()}\n`;
+      });
+      document.getElementById('clearSelection').innerHTML = `
+      <button id="clearSelectionButton" class="btn btn-info">Limpar Seleção</button>
+      `;
+      document.getElementById('clearSelectionButton').onclick = function () {
+        clearFields();
+      };
+      document.getElementById('saloonName').value = place.name;
+      blockField('saloonName');
+      document.getElementById('contactNumber').value = place.formatted_phone_number;
+      document.getElementById('fullAddress').value = place.formatted_address;
+      blockField('fullAddress');
+      document.getElementById('businessHours').value = workTime;
+      document.getElementById('saloonPosition').value = JSON.stringify([coord.lng, coord.lat]);
+      console.log(document.getElementById('saloonPosition').value);
+      document.getElementById('placeID').value = place.place_id;
+      document.getElementById('ratingFromGoogle').value = place.rating;
+      console.log(typeof (place.photos), typeof (typeof (place.photos)));
+      if (typeof (place.photos) !== 'undefined') {
+        place.photos.forEach((photo) => {
+          document.getElementById('imageGallery').innerHTML += `
+          <input type="hidden" class="imageGalleryClass" name="imageGallery[]" type="text" value="${photo.getUrl()}">
+          `;
+        });
+      }
+      console.log(typeof (place.reviews));
+      if (typeof (place.reviews) !== 'undefined') {
+        place.reviews.forEach((review) => {
+          console.log(review);
+          const {
+            author_name, rating, relative_time_description, text,
+          } = review;
+          const reviewHeader = `{
+          *name*:*${author_name}*, 
+          *rating*:*${rating}*,
+          *when*:*${relative_time_description}*
+          }`;
+          const reviewText = text;
+
+          document.getElementById('reviewsFromGoogle').innerHTML += `
+          <input type="hidden" class="reviewsFromGoogleClass" name="reviewsFromGoogle[]" type="text" value="${reviewHeader}">`;
+          document.getElementById('reviewsFromGoogle').innerHTML += `
+          <input type="hidden" class="reviewsFromGoogleClass" name="reviewsFromGoogleText[]" type="text" value="${reviewText}">`;
+          // console.log(reviewString, typeof (reviewString));
+          console.log(document.getElementById('reviewsFromGoogle'));
+        });
+      }
+    }
+  }
+}
+
+function blockField(field) {
+  document.getElementById(field).readOnly = true;
+  document.getElementById(field).classList.add('blocked');
+  document.getElementById(field).onclick = function () {
+    document.getElementById(`blockedField${field}`).innerHTML += `
+    Campo não pode ser alterado. Se quiser cadastrar um local diferente clique em "Limpar Seleção"
+    `;
+  };
+  document.getElementById(field).onfocusout = function () {
+    document.getElementById(`blockedField${field}`).innerHTML = '';
+  };
+}
+
+function clearFields() {
+  document.getElementById('saloonName').value = '';
+  document.getElementById('saloonName').readOnly = false;
+  document.getElementById('saloonName').classList.remove('blocked');
+  document.getElementById('saloonName').onclick = '';
+  document.getElementById('contactNumber').value = '';
+  document.getElementById('Endereço').value = '';
+  document.getElementById('Endereço').readOnly = false;
+  document.getElementById('Endereço').classList.remove('blocked');
+  document.getElementById('Endereço').onclick = '';
+  document.getElementById('weekday').value = '';
+  document.getElementById('saloonPosition').value = '';
+  document.getElementById('placeID').value = '';
+  document.getElementById('ratingFromGoogle').value = '';
+  document.getElementById('imageGalery').innerHTML = '';
+  document.getElementById('reviewsFromGoogle').innerHTML = '';
+}
