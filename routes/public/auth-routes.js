@@ -16,13 +16,17 @@ router.post('/signup', async (req, res) => {
     userName, userEmail, cellphone, password,
   } = req.body;
   if (userName === '' || userEmail === '' || cellphone === '' || password === '') {
-    res.render('public/signup', req.body, { errorMessage: 'Dados insuficientes, favor preencher todos os campos' });
+    req.flash('error', 'Dados insuficientes, favor preencher todos os campos');
+    res.redirect('back');
+    // res.render('public/signup', req.body, { errorMessage: 'Dados insuficientes, favor preencher todos os campos' });
     return;
   }
 
   const user = await User.findOne({ userEmail });
   if (user) {
-    res.render('public/signup', { errorMessage: 'Usuario já existente' });
+    req.flash('error', 'Usuário já existente!');
+    res.redirect('back');
+    // res.render('public/signup', { errorMessage: 'Usuario já existente' });
     return;
   }
 
@@ -37,7 +41,9 @@ router.post('/signup', async (req, res) => {
     await newUser.save();
     res.redirect('/login');
   } catch (error) {
-    res.render('public/signup', { error: 'Erro ao registrar usuario' });
+    req.flash('error', error.message);
+    res.redirect('back');
+    // res.render('public/signup', { error: 'Erro ao registrar usuario' });
   }
 });
 
@@ -52,12 +58,9 @@ router.post('/login', passport.authenticate('local', {
   passReqToCallback: true,
 }));
 
-// router.get('/private-page', ensureLogin.ensureLoggedIn(), (req, res) => {
-//   res.send({ user: req.user });
-// });
-
 router.get('/logout', (req, res) => {
   req.logout();
+  req.flash('success', 'Você saiu de sua conta');
   res.redirect('/login');
 });
 

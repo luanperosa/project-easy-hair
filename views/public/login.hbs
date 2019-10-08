@@ -1,4 +1,12 @@
 <div class="row container red lighten-5">
+
+  {{#if error}}
+    <div class="card-panel red lighten-4">{{error}}</div>
+  {{/if}}
+  {{#if success}}
+    <div class="card-panel teal lighten-4">{{success}}</div>
+  {{/if}}
+
   <h2 class="center">Entrar na minha conta</h2>
 
   <form class="col s8 offset-s2" action="/login" method="POST">

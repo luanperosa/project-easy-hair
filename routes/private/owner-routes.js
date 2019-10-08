@@ -23,20 +23,67 @@ router.get('/add-saloon', ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render('private/saloon/add-saloon');
 });
 
+// router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('photo'), async (req, res) => {
+//   const userID = req.user._id;
+//   const {
+//     saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
+//   } = req.body;
+//   const imageName = req.file.originalname;
+//   const imagePath = req.file.url;
+//   const newSaloon = new Saloon({
+//     saloonName, saloonEmail, contactNumber, businessHours, 'address.street': street, 'address.zipcode': zipcode, 'address.city': city, 'address.state': state, imageName, imagePath, userID,
+//   });
+//   if (req.user.role === 'Customer') {
+//     await User.findByIdAndUpdate(userID, { role: 'Owner' });
+//   }
+//   console.log(`This is the newSaloon: ${newSaloon}`)
+//   try {
+//     await newSaloon.save();
+//     res.redirect('/owner/my-saloon');
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// });
+
 router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('photo'), async (req, res) => {
   const userID = req.user._id;
-  const {
-    saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
+  let {
+    saloonName, saloonEmail, fullAddress, saloonPosition, contactNumber, businessHours, imageGallery, instagramProfile, placeID, reviewsFromGoogle, reviewsFromGoogleText, ratingFromGoogle,
   } = req.body;
   const imageName = req.file.originalname;
   const imagePath = req.file.url;
-  const newSaloon = new Saloon({
-    saloonName, saloonEmail, contactNumber, businessHours, 'address.street': street, 'address.zipcode': zipcode, 'address.city': city, 'address.state': state, imageName, imagePath, userID,
+
+  const reviewArray = [];
+  reviewsFromGoogle.forEach((review, index) => {
+    let reviewString = review.replace(/\*/g, '"');
+    reviewString = JSON.parse(reviewString.toString());
+    reviewString.text = reviewsFromGoogleText[index];
+    reviewArray.push(reviewString);
   });
+
+  // eslint-disable-next-line no-const-assign
+  reviewsFromGoogle = reviewArray;
+
+  console.log(`imageGallery: ${imageGallery}
+    ratingFromGoogle: ${ratingFromGoogle}
+    reviewsFromGoogle: ${reviewsFromGoogle}
+    saloonPosition: ${saloonPosition}
+    `);
+    
+  const newSaloon = new Saloon({
+    saloonName, saloonEmail, fullAddress, saloonPosition, contactNumber, businessHours, imageGallery, instagramProfile, placeID, reviewsFromGoogle, ratingFromGoogle, imageName, imagePath, userID,
+  });
+
+  const checkSaloonPlaceID = Saloon.find({ placeID });
+  if (checkSaloonPlaceID) {
+    req.flash('error', 'Este salão já está cadastrado');
+    res.redirect('back');
+  }
+
   if (req.user.role === 'Customer') {
     await User.findByIdAndUpdate(userID, { role: 'Owner' });
   }
-  console.log(`This is the newSaloon: ${newSaloon}`)
+  console.log(`This is the newSaloon: ${newSaloon}`);
   try {
     await newSaloon.save();
     res.redirect('/owner/my-saloon');
