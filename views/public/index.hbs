@@ -20,9 +20,10 @@
       <a href="/visitor/{{ this._id }}">
       <div class="card-content white-text">
         <span class="card-title">{{ saloonName }}</span>
-          {{#with address}}
+          {{!-- {{#with address}}
           <p>{{ street }} - {{ city }} - {{ state }} - {{ zipcode }}</p> 
-          {{/with}}
+          {{/with}} --}}
+          <p>{{ fullAddress }}</p>
       </div>
       </a>
     </div>

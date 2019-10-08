@@ -48,9 +48,11 @@ passport.use(new LocalStrategy({
       return next(`Esse é o err do LocalStrategy: ${err}`);
     }
     if (!user) {
+      req.flash('error', 'Endereço de email incorreto')
       return next(null, false, { errorMessage: 'Endereço de email incorreto.' });
     }
     if (!bcrypt.compareSync(password, user.password)) {
+      req.flash('error', 'Senha incorreta');
       return next(null, false, { errorMessage: 'Senha incorreta' });
     }
     return next(null, user);
@@ -125,6 +127,5 @@ app.use('/visitor', visitorRouter);
 app.listen(process.env.PORT, () => {
   console.log('Server listen', process.env.PORT);
 });
-
 
 module.exports = app;
