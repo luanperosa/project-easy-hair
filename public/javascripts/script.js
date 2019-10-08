@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.FormSelect.init(elems);
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, {
+    edge: 'right',
+
+  });
+});
+
 // document.addEventListener('DOMContentLoaded', function() {
 //   let elems = document.querySelectorAll('.datepicker');
 //   let instances = M.Datepicker.init(elems, {
