@@ -1,15 +1,13 @@
 <div class="container">
   <h1>Bem vindo ao Easy Hair</h1>
 
-  <p>This is the currentUser{{ currentUser }}</p>
-
-  {{!-- {{#unless req.user}}
-  <li><a href="/login">Entrar</a></li>
-  <li><a href="/signup">Cadastrar</a></li>
-  {{else}}
-  <li><a href="/user/profile">{{ req.user.userName }}</a></li>
-  <li><a href="/logout">Sair</a></li>
-  {{/unless}} --}}
+  {{#if error}}
+    <div class="card-panel red lighten-4">{{error}}</div>
+  {{/if}}
+  {{#if success}}
+    <div class="card-panel teal lighten-4">{{success}}</div>
+  {{/if}}
+  
 </div>
 
 <div class="container">

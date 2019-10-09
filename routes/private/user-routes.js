@@ -50,7 +50,9 @@ router.post('/:id/delete', ensureLogin.ensureLoggedIn(), async (req, res) => {
   const { id } = req.params;
   try {
     await User.findByIdAndRemove(id);
-    req.logout();
+    req.flash('success', 'Usuário deletado com sucesso');
+    res.redirect('/home');
+    // req.logout();
     } catch (error) {
     throw new Error(error);
   }
