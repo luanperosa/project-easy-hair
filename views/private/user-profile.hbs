@@ -1,30 +1,51 @@
 <div class="container">
 
-<h4> Olá <span class="red-text text-lighten-3">{{ currentUser.userName }}</span>! Confira sua agenda de serviços e atualize seus dados </h4>
+<h4> Olá <span class="red-text text-lighten-3">{{ currentUser.userName }}</span>! Confira sua agenda e atualize seus dados</h4>
 
 {{#if success}}
   <div class="card-panel teal lighten-4">{{success}}</div>
 {{/if}}
 
-
-
-  <div class="row container red lighten-5 center" id="menuProfile">
-    <ul>
-      <li><a href="/schedules/my-schedule" class="waves-effect waves-light btn">Minha agenda</a></li>
-      <li><a href='/user/{{ this._id }}/edit' class="waves-effect waves-light btn">Atualizar meus dados</a> </li>
-    </ul>
-      
-      
-      <a href="/owner/add-saloon" class="waves-effect waves-light btn">Cadastrar meu salão</a>
-      {{#equal currentUser.role 'Owner'}}
-      <a href="/owner/my-saloon" class="waves-effect waves-light btn">Ver meu(s) salão(ões)</a>
-      {{/equal}}
-      
-</div>
-
-
-    
+<div class="row">
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <a href="/schedules/my-schedule">
+          <div class="card-content white-text">
+          <span class="card-title">Minha agenda</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <a href="/user/{{ this._id }}/edit">
+          <div class="card-content white-text">
+          <span class="card-title">Atualizar meus dados</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <a href="/owner/add-saloon">
+          <div class="card-content white-text">
+          <span class="card-title">Cadastrar meu salão</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    {{#equal currentUser.role 'Owner'}}
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <a href="/owner/my-saloon">
+          <div class="card-content white-text">
+          <span class="card-title">Ver meu(s) salão(ões)</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    {{/equal}}
   </div>
-  
-
+    
 </div>
+  
