@@ -69,16 +69,20 @@ router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('pho
     reviewsFromGoogle: ${reviewsFromGoogle}
     saloonPosition: ${saloonPosition}
     `);
-    
+
+    // const checkSaloonPlaceID = Saloon.find({ placeID });
+
+    // if (checkSaloonPlaceID) {
+    //   req.flash('error', 'Este salão já está cadastrado');
+    //   console.log(`this is the placeID ${placeID}`);
+    //   res.redirect('back');
+    //   return;
+    // }  
+
   const newSaloon = new Saloon({
     saloonName, saloonEmail, fullAddress, saloonPosition, contactNumber, businessHours, imageGallery, instagramProfile, placeID, reviewsFromGoogle, ratingFromGoogle, imageName, imagePath, userID,
   });
 
-  const checkSaloonPlaceID = Saloon.find({ placeID });
-  if (checkSaloonPlaceID) {
-    req.flash('error', 'Este salão já está cadastrado');
-    res.redirect('back');
-  }
 
   if (req.user.role === 'Customer') {
     await User.findByIdAndUpdate(userID, { role: 'Owner' });

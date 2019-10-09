@@ -3,20 +3,20 @@ window.onload = () => {
   // markCurrentLocation();
   setInitialMap();
   
-  const inputSearchAddress = document.getElementById('addLocalSearch');
+  const inputSearchAddress = document.getElementById('inputAddressQuery');
   const autocompleteSearch = new google.maps.places.Autocomplete(inputSearchAddress);
   autocompleteSearch.setComponentRestrictions({ country: ['br'] });
 
-  const addAddress = document.getElementById('Endereço');
-  console.log('this is the addAddress', addAddress);
-  const autocompleteAddress = new google.maps.places.Autocomplete(addAddress);
-  autocompleteAddress.setComponentRestrictions({ country: ['br'] });
+  // const addAddress = document.getElementById('Endereço');
+  // console.log('this is the addAddress', addAddress);
+  // const autocompleteAddress = new google.maps.places.Autocomplete(addAddress);
+  // autocompleteAddress.setComponentRestrictions({ country: ['br'] });
 
-  document.getElementById('addLocalButton').onclick = async function (event) {
+  document.getElementById('searchAddressQuery').onclick = async function (event) {
 
     try {
       event.preventDefault();
-      const address = document.getElementById('addLocalSearch').value;
+      const address = document.getElementById('inputAddressQuery').value;
       console.log('address', address);
       findPlaces(address);
 
@@ -33,7 +33,7 @@ window.onload = () => {
       console.log('response', response, saloonLocation, formattedAddress, placeId);
       // addMarkerPlaces(places);
       findPlaces(address);
-      document.getElementById('addLocalSearch').value = '';
+      document.getElementById('inputAddressQuery').value = '';
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +48,7 @@ window.onload = () => {
       if (geoInfo.data.results.length) {
         const geoCoord = geoInfo.data.results[0].geometry.location;
         addSingleMarker(geoCoord);
-        document.querySelector('#saloonPosiion').value = JSON.stringify([geoCoord.lat, geoCoord.lng]);
+        document.querySelector('#saloonPosition').value = JSON.stringify([geoCoord.lat, geoCoord.lng]);
         console.log(document.getElementById('saloonPosition').value);
         document.getElementById('addressChecker').innerHTML = '';
       } else {

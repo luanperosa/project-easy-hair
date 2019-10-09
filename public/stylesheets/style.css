@@ -13,6 +13,10 @@
   width: 100%;
  }
 
+ .inline-btn {
+   display: inline;
+ }
+
  #sizeCard {
   width: 50%;
  }
@@ -22,3 +26,4 @@
   height: auto;
   
  }
+
