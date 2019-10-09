@@ -113,10 +113,11 @@ function initMap() {
 
 // former function markCurrentLocation 
 function setInitialMap() {
-  const infoWindow = new google.maps.InfoWindow();
-  infoWindow.setPosition(pos);
-  infoWindow.setContent('Você está aqui');
-  infoWindow.open(map);
+  // const infoWindow = new google.maps.InfoWindow();
+  // infoWindow.setPosition(pos);
+  // // infoWindow.setContent('Você está aqui');
+  // // infoWindow.open(map);
+  addSingleMarker(pos);
   map.setCenter(pos);
 }
 
@@ -154,14 +155,11 @@ function addMarker(places) {
 
     contentString[i] = `
     <div class = 'marker-title'>${place.title}</div>
-    <div class = 'marker-category'>${place.vegCategory}</div>
     <div class = 'marker-address'>${place.address}</div>
     `;
     marker[i] = new google.maps.Marker({
       position: place.coord,
       map,
-      // icon:
-      //   'https://res.cloudinary.com/juliaramosguedes/image/upload/v1569094277/project-vegspot/vegflag.png',
     });
 
     marker[i].addListener('mouseover', () => {
@@ -227,6 +225,18 @@ function deleteMarkers() {
 }
 
 async function geocode(location) {
+  //   try {
+  //     geocoder.geocode({
+  //     address: location,
+  //     region: 'br',
+  //   }, (result, status) => {
+  //     if (status == 'OK') {
+  //       return result;
+  //     }
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  // }  
   try {
     return await axios
       .get('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -244,7 +254,7 @@ async function geocode(location) {
 async function findPlaces(text) {
   const request = {
     location: pos,
-    radius: '500',
+    // radius: '500',
     query: text,
     // bounds: 'strictbounds',
     // type: ['restaurant'],
@@ -253,15 +263,20 @@ async function findPlaces(text) {
   await service.textSearch(request, (places, status) => {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       addMarkerPlaces(places);
-      document.getElementById('addList').innerHTML = '';
+      document.getElementById('queryResult').innerHTML = '';
       places.forEach((place, index) => {
         console.log('places', place);
+        // <li class="addPlace">${place.name} ${place.formatted_address}
+        // <input type="hidden" value="${index}">
+        // <button class="fillListButton btn waves-effect waves-light">Adicionar este endereço</button>
+        // </li>
 
-        document.getElementById('addList').innerHTML += `
-        <li class="addPlace">${place.name} ${place.formatted_address} ${place.type}
-        <input type="hidden" value="${index}">
-        <button class="fillListButton btn waves-effect waves-light">Adicionar este endereço</button>
-        </li>
+        document.getElementById('queryResult').innerHTML += `
+        <tr>
+          <td>${place.name}</td>
+          <td>${place.formatted_address}</td>
+          <td class="fillListButton btn waves-effect waves-light" value="${index}">Adicionar</td>  
+        </tr>
         `;
       });
       const addButton = document.querySelectorAll('.fillListButton');
@@ -297,17 +312,17 @@ function placeDetails(id) {
       place.opening_hours.weekday_text.forEach((day) => {
         workTime += `${day.toString()}\n`;
       });
-      document.getElementById('clearSelection').innerHTML = `
-      <button id="clearSelectionButton" class="btn btn-info">Limpar Seleção</button>
+      document.getElementById('clearForm').innerHTML = `
+      <button id="clearFormBtn" class="btn btn-info">Limpar Cadastro</button>
       `;
-      document.getElementById('clearSelectionButton').onclick = function () {
+      document.getElementById('clearFormBtn').onclick = function () {
         clearFields();
       };
       document.getElementById('saloonName').value = place.name;
-      blockField('saloonName');
+      
       document.getElementById('contactNumber').value = place.formatted_phone_number;
       document.getElementById('fullAddress').value = place.formatted_address;
-      blockField('fullAddress');
+  
       document.getElementById('businessHours').value = workTime;
       document.getElementById('saloonPosition').value = JSON.stringify([coord.lng, coord.lat]);
       console.log(document.getElementById('saloonPosition').value);
@@ -347,33 +362,15 @@ function placeDetails(id) {
   }
 }
 
-function blockField(field) {
-  document.getElementById(field).readOnly = true;
-  document.getElementById(field).classList.add('blocked');
-  document.getElementById(field).onclick = function () {
-    document.getElementById(`blockedField${field}`).innerHTML += `
-    Campo não pode ser alterado. Se quiser cadastrar um local diferente clique em "Limpar Seleção"
-    `;
-  };
-  document.getElementById(field).onfocusout = function () {
-    document.getElementById(`blockedField${field}`).innerHTML = '';
-  };
-}
-
 function clearFields() {
   document.getElementById('saloonName').value = '';
-  document.getElementById('saloonName').readOnly = false;
-  document.getElementById('saloonName').classList.remove('blocked');
-  document.getElementById('saloonName').onclick = '';
   document.getElementById('contactNumber').value = '';
-  document.getElementById('Endereço').value = '';
-  document.getElementById('Endereço').readOnly = false;
-  document.getElementById('Endereço').classList.remove('blocked');
-  document.getElementById('Endereço').onclick = '';
-  document.getElementById('weekday').value = '';
+  document.getElementById('fullAddress').value = '';
+  document.getElementById('businessHours').value = '';
   document.getElementById('saloonPosition').value = '';
   document.getElementById('placeID').value = '';
+  document.getElementById('coverPhoto').value = '';
   document.getElementById('ratingFromGoogle').value = '';
-  document.getElementById('imageGalery').innerHTML = '';
+  document.getElementById('imageGallery').innerHTML = '';
   document.getElementById('reviewsFromGoogle').innerHTML = '';
 }
