@@ -53,16 +53,19 @@ router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('pho
   const imageName = req.file.originalname;
   const imagePath = req.file.url;
 
-  const reviewArray = [];
-  reviewsFromGoogle.forEach((review, index) => {
-    let reviewString = review.replace(/\*/g, '"');
-    reviewString = JSON.parse(reviewString.toString());
-    reviewString.text = reviewsFromGoogleText[index];
-    reviewArray.push(reviewString);
-  });
+
+  if (placeID) {
+    const reviewArray = [];
+    reviewsFromGoogle.forEach((review, index) => {
+      let reviewString = review.replace(/\*/g, '"');
+      reviewString = JSON.parse(reviewString.toString());
+      reviewString.text = reviewsFromGoogleText[index];
+      reviewArray.push(reviewString);
+    });
+    reviewsFromGoogle = reviewArray;
+  }
 
   // eslint-disable-next-line no-const-assign
-  reviewsFromGoogle = reviewArray;
 
   console.log(`imageGallery: ${imageGallery}
     ratingFromGoogle: ${ratingFromGoogle}
