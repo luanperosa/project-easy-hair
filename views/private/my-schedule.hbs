@@ -1,5 +1,5 @@
 <div class="container">
-  <p>Voltar para <a href="/user/profile">página de perfil</a></p>
+  
   <h3 class="center-align">Meus Serviços Agendados</h3> 
 </div>
 
@@ -14,10 +14,10 @@
   </thead>
 
   <tbody>
-  {{#each arrayObject }}   
+  {{#each currentDate }}   
    <tr>  
     
-    <td>{{ date }}</td> 
+    <td>{{ date }}/{{mounth}}/{{year}} ás {{hour}} horas</td> 
     <td>{{ service }}</td>
     <td><a href="/visitor/{{ saloonID }}">{{ saloon }}</a></td>
   

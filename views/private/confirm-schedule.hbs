@@ -1,3 +1,5 @@
+<div class="container">
+
 <div class="row container red lighten-5">
     <h2 class="center">Agendar horario</h2>
     <form class="col s8 offset-s2" action="/schedules/{{currentSaloon}}/{{currentService}}/create-schedule" method="POST">
@@ -11,25 +13,26 @@
       <div class="row">
         <div class="input-field col s12">
         <select name="timeOfService">
-      <option value="">Escolha seu horario</option>
-      <option value="08:00">08:00</option>
-      <option value="08:30">08:30</option>
-      <option value="09:00">09:00</option>
-      <option value="09:30">09:30</option>
-      <option value="10:00">10:00</option>
-      <option value="10:30">10:30</option>
-      <option value="11:00">11:00</option>
-      <option value="11:30">11:30</option>
-      <option value="13:00">13:00</option>
-      <option value="13:30">13:30</option>
-      <option value="14:00">14:00</option>
-      <option value="14:30">14:30</option>
-      <option value="15:00">15:00</option>
-      <option value="15:30">15:30</option>
-      <option value="16:00">16:00</option>
-      <option value="16:30">16:30</option>
-    </select>
-    <label>Horario</label>
+          <option value="">Escolha seu horario</option>
+          <option value="08:00">08:00</option>
+          <option value="08:30">08:30</option>
+          <option value="09:00">09:00</option>
+          <option value="09:30">09:30</option>
+          <option value="10:00">10:00</option>
+          <option value="10:30">10:30</option>
+          <option value="11:00">11:00</option>
+          <option value="11:30">11:30</option>
+          <option value="13:00">13:00</option>
+          <option value="13:30">13:30</option>
+          <option value="14:00">14:00</option>
+          <option value="14:30">14:30</option>
+          <option value="15:00">15:00</option>
+          <option value="15:30">15:30</option>
+          <option value="16:00">16:00</option>
+          <option value="16:30">16:30</option>
+        </select>
+        </div>
+    
       </div>
       
       
@@ -44,6 +47,5 @@
       <button class="btn waves-effect waves-light" type="submit">Confirmar agendamento<i class="material-icons right">send</i></button>
     </form>
   </div>
-  <div class="container">
-    <p class="left">Voltar para o <a href="/user/profile"> meu perfil</a></p>
+  
   </div>
