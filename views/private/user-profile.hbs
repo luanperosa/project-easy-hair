@@ -5,17 +5,26 @@
 {{#if success}}
   <div class="card-panel teal lighten-4">{{success}}</div>
 {{/if}}
-<p><a href="/schedules/my-schedule">Minha agenda</a></p>
-
-<p><a href='/user/{{ this._id }}/edit '>Atualizar meus dados</a></p>
-
-<p>Voltar para a <a href="/">página inicial</a></p>
-
-<p class=""><a href="/owner/add-saloon">Cadastrar meu salão</a></p>
 
 
-{{#equal currentUser.role 'Owner'}}
-<p><a href="/owner/my-saloon">Ver meu(s) salão(ões)</a></p>
-{{/equal}}
+
+  <div class="row container red lighten-5 center" id="menuProfile">
+    <ul>
+      <li><a href="/schedules/my-schedule" class="waves-effect waves-light btn">Minha agenda</a></li>
+      <li><a href='/user/{{ this._id }}/edit' class="waves-effect waves-light btn">Atualizar meus dados</a> </li>
+    </ul>
+      
+      
+      <a href="/owner/add-saloon" class="waves-effect waves-light btn">Cadastrar meu salão</a>
+      {{#equal currentUser.role 'Owner'}}
+      <a href="/owner/my-saloon" class="waves-effect waves-light btn">Ver meu(s) salão(ões)</a>
+      {{/equal}}
+      
 </div>
 
+
+    
+  </div>
+  
+
+</div>
