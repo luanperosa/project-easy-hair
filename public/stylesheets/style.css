@@ -16,3 +16,14 @@
  .inline-btn {
    display: inline;
  }
+
+ #sizeCard {
+  width: 50%;
+ }
+
+ #imageCard {
+  max-height:200px;
+  height: auto;
+  
+ }
+
