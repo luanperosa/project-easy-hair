@@ -1,10 +1,8 @@
 <div class="row container red lighten-5">
   <h2 class="center">Editar este salão</h2>
-  <div class="col s8 push-s2  red lighten-4" >
-    <p class="left">Voltar para o <a href="/owner/my-saloon/{{this._id}}">página deste estabelecimento</a></p>
-    <p class="right"><a href='/owner/edit-password '>Alterar minha senha</a></p>
+  <div class="col s8 push-s2" >
+    <p><a href="/owner/my-saloon/{{this._id}}">Voltar ao salão</a></p>
   </div>
-
   <form class="col s8 offset-s2" action="/owner/my-saloon/{{this._id}}/edit" method="POST" enctype="multipart/form-data">
    <div class="row">
         <div class="input-field col s12">
@@ -60,13 +58,15 @@
       {{#if errorMessage}}
       <p>{{errorMessage}}</p>
       {{/if}}
-  
+ 
       <button class="btn waves-effect waves-light" type="submit">Editar meu salão<i class="material-icons right">send</i></button>
-  </form>
-</div>
 
-<div class="container row">
-  <form class="col s8 offset-s2" action="/owner/my-saloon/{{ this._id }}/delete" method="POST">
-      <button class="btn-small waves-effect waves-light red darked-4" type="submit">Deletar este salão</button>
   </form>
-</div>  
+<div class="row">
+    <div class="input-field col s12">
+      <form class="col s8 offset-s2" action="/owner/my-saloon/{{ this._id }}/delete" method="POST">
+      <button class="btn-small waves-effect waves-light red darked-4" type="submit">Deletar este salão</button>
+      </form>
+    </div>
+</div>
+</div>
