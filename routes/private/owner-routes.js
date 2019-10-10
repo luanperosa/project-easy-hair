@@ -23,36 +23,18 @@ router.get('/add-saloon', ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render('private/saloon/add-saloon');
 });
 
-// router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('photo'), async (req, res) => {
-//   const userID = req.user._id;
-//   const {
-//     saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
-//   } = req.body;
-//   const imageName = req.file.originalname;
-//   const imagePath = req.file.url;
-//   const newSaloon = new Saloon({
-//     saloonName, saloonEmail, contactNumber, businessHours, 'address.street': street, 'address.zipcode': zipcode, 'address.city': city, 'address.state': state, imageName, imagePath, userID,
-//   });
-//   if (req.user.role === 'Customer') {
-//     await User.findByIdAndUpdate(userID, { role: 'Owner' });
-//   }
-//   console.log(`This is the newSaloon: ${newSaloon}`)
-//   try {
-//     await newSaloon.save();
-//     res.redirect('/owner/my-saloon');
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// });
-
 router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('photo'), async (req, res) => {
   const userID = req.user._id;
   let {
     saloonName, saloonEmail, fullAddress, saloonPosition, contactNumber, businessHours, imageGallery, instagramProfile, placeID, reviewsFromGoogle, reviewsFromGoogleText, ratingFromGoogle,
   } = req.body;
-  const imageName = req.file.originalname;
-  const imagePath = req.file.url;
-
+  if (typeof (req.file) !== 'undefined') {
+    const imageName = req.file.originalname;
+    const imagePath = req.file.url;
+  } else {
+    const imageName = req.file.originalname;
+    const imagePath = req.file.url;
+  }
 
   if (placeID) {
     const reviewArray = [];
@@ -73,14 +55,12 @@ router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('pho
     saloonPosition: ${saloonPosition}
     `);
 
-    // const checkSaloonPlaceID = Saloon.find({ placeID });
-
-    // if (checkSaloonPlaceID) {
-    //   req.flash('error', 'Este salão já está cadastrado');
-    //   console.log(`this is the placeID ${placeID}`);
-    //   res.redirect('back');
-    //   return;
-    // }  
+  const checkSaloonPlaceID = Saloon.find({ placeID });
+  if (checkSaloonPlaceID) {
+    req.flash('error', 'Este salão já está cadastrado');
+    console.log(`this is the placeID ${placeID}`);
+    return res.redirect('back');
+  }
 
   const newSaloon = new Saloon({
     saloonName, saloonEmail, fullAddress, saloonPosition, contactNumber, businessHours, imageGallery, instagramProfile, placeID, reviewsFromGoogle, ratingFromGoogle, imageName, imagePath, userID,
@@ -114,10 +94,10 @@ router.get('/my-saloon', checkOwner, async (req, res) => {
 
 router.get('/my-saloon/:id', checkOwner, async (req, res) => {
   const { id } = req.params;
-  console.log(`This is the is req.params.id: ${id}`)
+  console.log(`This is the is req.params.id: ${id}`);
   try {
     const currentSaloon = await Saloon.findById(id);
-    const listOfServices = await Service.find({ 'saloonId': id });
+    const listOfServices = await Service.find({ saloonId: id });
     // console.log(`This is the currentSaloon: ${currentSaloon}`);
     res.render('private/saloon/my-saloon-page', { currentSaloon, listOfServices });
   } catch (error) {
@@ -129,8 +109,6 @@ router.get('/my-saloon/:id/edit', checkOwner, async (req, res) => {
   const { id } = req.params;
   try {
     const saloon = await Saloon.findById(id);
-    console.log(`This is the id from saloon edit route ${id}`);
-    console.log(`This is the saloon edit route ${saloon}`);
     res.render('private/saloon/my-saloon-edit', saloon);
   } catch (error) {
     throw new Error(error);
@@ -140,7 +118,7 @@ router.get('/my-saloon/:id/edit', checkOwner, async (req, res) => {
 router.post('/my-saloon/:id/edit', checkOwner, uploadCloud.single('photo'), async (req, res) => {
   const { id } = req.params;
   const {
-    saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state,
+    saloonName, saloonEmail, contactNumber, businessHours, fullAddress,
   } = req.body;
   const imageName = req.file.originalname;
   const imagePath = req.file.url;
@@ -152,8 +130,9 @@ router.post('/my-saloon/:id/edit', checkOwner, uploadCloud.single('photo'), asyn
 
   try {
     await Saloon.findByIdAndUpdate(id, {
-      saloonName, saloonEmail, contactNumber, businessHours, street, zipcode, city, state, imageName, imagePath,
+      saloonName, saloonEmail, contactNumber, businessHours, fullAddress, imageName, imagePath,
     });
+    req.flash('success', 'Salão editado com sucesso');
     res.redirect('/owner/my-saloon');
   } catch (error) {
     throw new Error(error);
@@ -164,7 +143,7 @@ router.post('/my-saloon/:id/delete', checkOwner, async (req, res) => {
   const { id } = req.params;
   try {
     await Saloon.findByIdAndRemove(id);
-    res.redirect('/owner/my-saloon')
+    res.redirect('/owner/my-saloon');
   } catch (error) {
     throw new Error(error);
   }
@@ -174,16 +153,16 @@ router.get('/my-saloon/:id/schedule', checkOwner, async (req, res) => {
   const currentSaloon = await Saloon.findById(req.params.id);
   try {
     // const scheduleUser = await Schedule.find({ userID });
-    const scheduleSaloon = await Schedule.find({ 'saloonID': req.params.id });
+    const scheduleSaloon = await Schedule.find({ saloonID: req.params.id });
     let currentObject = [{
       date: String,
       service: String,
       sallon: String,
     }];
-    let arrayObject = [];
+    const arrayObject = [];
     for (let i = 0; i < scheduleSaloon.length; i += 1) {
-      let serv =  await Service.findById(scheduleSaloon[i].serviceID);
-      let customer = await User.findById(scheduleSaloon[i].userID);
+      const serv = await Service.findById(scheduleSaloon[i].serviceID);
+      const customer = await User.findById(scheduleSaloon[i].userID);
 
       currentObject = new Object({
         date: scheduleSaloon[i].dateOfService,

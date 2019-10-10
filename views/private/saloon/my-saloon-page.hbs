@@ -31,6 +31,26 @@
     {{/with }}
   </div>
   
+{{!-- {{#if imageGallery}}
+  <div class="carousel">
+    {{#each imageGallery}}
+    <a class="carousel-item"><img src="{{ image }}"></a>
+
+    {{/each}}
+  </div>
+{{/if }} --}}
+<div class="container">
+  {{!-- <ul> --}}
+    <div class="carousel carousel-slider">
+    {{!-- <li>list of images</li> --}}
+    {{#each currentSaloon.imageGallery}}
+      {{!-- <li><img src="{{ this }}"></li> --}}
+      <a class="carousel-item"><img src="{{this}}"></a>
+    {{/each}}
+  {{!-- </ul> --}}
+
+    </div>
+</div>
 
 
 <div class="container">
@@ -64,3 +84,13 @@
 </table>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    {{!-- var instances = M.Carousel.init(elems, options); --}}
+    var instance = M.Carousel.init({
+    fullWidth: true
+  });
+  });
+</script>
