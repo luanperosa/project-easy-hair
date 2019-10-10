@@ -5,10 +5,7 @@
     <p><a href="/owner/my-saloon/{{this._id}}">Voltar ao salão</a></p>
   </div>
 
-  <div class="col s8 push-s2  red lighten-4" >--}}
-    <p class="left">Voltar para o <a href="/owner/my-saloon/{{this._id}}">página deste estabelecimento</a></p>
-    <p class="right"><a href='/owner/edit-password '>Alterar minha senha</a></p>
-  </div>
+    
 {{!--
 
   <form class="col s8 offset-s2" action="/owner/my-saloon/{{this._id}}/edit" method="POST" enctype="multipart/form-data">
@@ -85,14 +82,15 @@
   <section class="container">
     
   <h1 class="center-align">Editar meu salão</h1>
+
   {{#if error}}
     <div class="card-panel red lighten-4">{{error}}</div>
   {{/if}}
   {{#if success}}
     <div class="card-panel teal lighten-4">{{success}}</div>
   {{/if}}
-
 <div class="row">
+  <p class="left"><a href="/owner/my-saloon/{{this._id}}">Voltar para á página do estabelecimento</a></p> <br><br><br>
   <div class="col m6 s12">
     <label class="sr-only" for="inputAddressQuery">Digite seu novo endereço</label>
     <input type="text" name="inputAddressQuery" id="inputAddressQuery" placeholder="Pesquisar" aria-label="Search for a spot" aria-describedby="search-spot">
@@ -198,11 +196,6 @@
   </form>
 
 </div>
-
-<div class="container">
-  <p class="left">Voltar para o <a href="/user/profile"> meu perfil</a></p>
-</div>
-
 
   <!-- JavaScript -->
   <script src="/javascripts/add-saloon.js"></script>
