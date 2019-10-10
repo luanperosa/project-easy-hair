@@ -13,8 +13,6 @@ function initMap() {
       };
     });
   } else {
-    // Browser doesn't support Geolocation
-    // handleLocationError(false, infoWindow, map.getCenter());
     pos = {
       lat: -23.561682,
       lng: -46.660170,
