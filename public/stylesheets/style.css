@@ -1,3 +1,7 @@
+body {
+  background-color: rgb(224, 210, 210);
+}
+
 #vertical-space {
   height: 30px;
   background: black;

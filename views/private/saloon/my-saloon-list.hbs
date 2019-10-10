@@ -1,6 +1,6 @@
 <div class="container">
 
-   <h4>Meus Salões</h4>
+   <h2 class="center">Meus Salões</h2>
 
 
   {{#if error}}
@@ -12,20 +12,24 @@
    
   <div class="row">
 {{#each saloonByOwner }}
-    <div class="col s12 m6">
+    <div class="col s12 m7" id="sizeCard">
       <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <a href="/owner/my-saloon/{{this._id}}"><span class="card-title">{{ this.saloonName }}</span></a>
-          {{!-- <p>Horário de Funcionamento {{ this.businessHours }}</p> --}}
-          <br>
-          <p>Endereço: {{ this.fullAddress }}</p>
-          {{!-- <p>Endereço: {{ this.address.street }} - {{ this.address.city }} - {{ this.address.state}} - {{ this.address.zipcode }}</p> --}}
+      <a href="/owner/my-saloon/{{this._id}}">
+        <div class="card-image">
+          {{#if imagePath}}
+          <img class="responsive-img" src="{{ imagePath }}" id="imageCard">
+        {{else}}
+          <img id="no-image" class="responsive-img" src="/images/no-image.jpg" alt=""> 
+        {{/if}}
+          
         </div>
-        <div class="card-action">
-          <a href="/owner/my-saloon/{{this._id}}/schedule">Ver serviços agendados</a>
+        <div class="card-content">
+          <span class="card-title">{{ saloonName }}</span>
+          <a href="/owner/my-saloon/{{this._id}}/schedule"><span>Ver serviços agendados</span></a>
         </div>
       </div>
-    </div>
+      </a>
+      </div>
 {{/each}}    
   </div>
 </div>

@@ -10,12 +10,12 @@
   
 </div>
 
-<div class="container">
-<div class="row">
+  <div class="container">
+    <div class="row">
  
-{{#each listOfSaloon}}
+      {{#each listOfSaloon}}
 
-  <div class="col s12 m7" id="sizeCard">
+      <div class="col s12 m7" id="sizeCard">
       <div class="card blue-grey darken-1">
       <a href="/visitor/{{ this._id }}">
         <div class="card-image">
@@ -38,25 +38,7 @@
         </div>
       </div>
       </a>
-    </div>
-  
-  {{!-- <div class="col s12 m6">
-    <div class="card blue-grey darken-1">
-      <a href="/visitor/{{ this._id }}">
-      <div class="card-content white-text">
-        <span class="card-title">{{ saloonName }}</span>
-          {{#if fullAddress}}
-          <p>{{ fullAddress }}</p>
-          {{else }}
-          {{#with address}}
-          <p>{{ street }} - {{ city }} - {{ state }} - {{ zipcode }}</p> 
-          {{/with}}
-          {{/if}}
       </div>
-      </a>
+      {{/each}}
     </div>
-  </div> --}}
-
-{{/each}}
-</div>
 </div>
