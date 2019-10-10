@@ -17,6 +17,11 @@
       <p><strong>Horário de Funcionamento:</strong> {{ businessHours }}</p>
       <p><strong>Email:</strong> {{ saloonEmail }}</p>
       <p><strong>Telefone:</strong> {{ contactNumber }}</p>
+      {{#equal ratingFromGoogle 0}}
+      <p><strong>Avaliação do Google:</strong> {{ ratingFromGoogle}} (Não há avaliação no Google)</p>
+      {{else}}
+      <p><strong>Avaliação do Google:</strong> {{ ratingFromGoogle}}</p>
+      {{/equal}}
       <p><a href="#">Instagram</a></p>
     </div>
       <div class="col m6 s12">
@@ -26,7 +31,7 @@
         <a class="carousel-item responsive-img"><img src="{{ this }}"></a>
       {{/each}}
       {{else}}
-        <img id="no-image" class="responsive-img" src="/images/no-image.jpg" alt=""> 
+        <img id="no-image" class="responsive-img" src="{{ imagePath }}" alt=""> 
       {{/if}}
       </div>
 
@@ -73,5 +78,27 @@
   </tbody>
 </table>
 
+</div>
+
+<br><br>
+<div class="container row">
+{{#if currentSaloon.reviewsFromGoogle}}
+  <h4 class="center-align">Avaliação de Usuários no Google:</h4>
+  <br>
+  <div class="col offset-m4 m4 s12 carousel carousel-slider center">
+   {{#each currentSaloon.reviewsFromGoogle}}
+    <div class="carousel-item  red lighten-2 white-text card-reviews">
+      <p class="right-align">{{when}}</p>
+      <h4>{{name}}</h4>
+      <p>Avaliação: {{rating}} </p>
+      
+      <p>" {{text}} "</p>
+
+    </div>
+  {{/each}}
+  </div>
+  {{else}}
+  <h4 class="center-align">Não há Avaliação de Usuários no Google:</h4>
+  {{/if}}
 </div>
 

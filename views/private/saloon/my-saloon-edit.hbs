@@ -129,9 +129,6 @@
   
   <form action="/owner/my-saloon/{{this._id}}/edit" id="form-container" class="col s8 offset-s2"  method="POST" enctype="multipart/form-data">
 
-    {{!-- <label for="saloonName">Nome do Estabelecimento</label><br>
-    <input id="saloonName" type="text" name="saloonName" class="">
-    <div id="blockedFieldsaloonName"></div> --}}
 
     <div class="row">
       <div class="input-field col s12">
@@ -139,29 +136,21 @@
         <label for="saloonName">Nome do Estabelecimento</label>
       </div>
     </div>
-    {{!-- <br><br>
-    <label for="saloonEmail">Email</label><br>
-    <input id="saloonEmail" type="text" name="saloonEmail" class="form-control-lg"> --}}
+
     <div class="row">
       <div class="input-field col s12">
         <input placeholder="Email" id="saloonEmail" name="saloonEmail" type="text" class="validate" value="{{ saloonEmail }}">
         <label for="saloonEmail">Email</label>
       </div>
     </div>
-      {{!-- <br><br>
-    <label for="contactNumber">Telefone</label><br>
-    <input id="contactNumber" type="text" name="contactNumber" class="form-control-lg"> --}}
+     
     <div class="row">
       <div class="input-field col s12">
         <input placeholder="Telefone" id="contactNumber" name="contactNumber" type="text" class="validate" value="{{ contactNumber }}">
         <label for="contactNumber">Telefone</label>
       </div>
     </div>
-      {{!-- <br><br> --}}
-    {{!-- <label for="fullAddress">Endereço</label><br>
-    <input id="fullAddress" type="text" name="fullAddress" class="form-control-lg">
-    <div id="addressChecker"></div>
-    <div id="blockedFieldEndereço"></div> --}}
+ 
     <div class="row">
       <div class="input-field col s12">
         <input placeholder="Endereço" id="fullAddress" name="fullAddress" type="text" class="validate" value="{{ fullAddress }}">
@@ -169,11 +158,6 @@
         <p id="error-message"></p>
       </div>
     </div>
-
-    {{!-- <br><br>
-    <label for="businessHours">Horário de funcionamento</label><br>
-    <textarea name="businessHours" id="businessHours" cols="50" rows="10"></textarea>
-      <br><br> --}}
 
     <div class="row">
       <div class="input-field col s12">
@@ -183,8 +167,7 @@
     </div>
     <label for="coverPhoto">Selecione uma Foto de Capa</label><br>
     <input id="coverPhoto" type="file" name="photo" class="">
-      {{!-- <br><br> --}}
-    {{!-- <br> --}}
+
     <input type="hidden" id="saloonPosition" name="saloonPosition" type="text">
     <input type="hidden" id="placeID" name="placeID" type="text">
     <input type="hidden" id="ratingFromGoogle" name="ratingFromGoogle" type="number">
