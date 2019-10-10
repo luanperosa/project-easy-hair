@@ -3,7 +3,6 @@ require('dotenv').config();
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const axios = require('axios');
 const mongoose = require('mongoose');
 const express = require('express');
 const logger = require('morgan');
@@ -116,6 +115,7 @@ const ownerRoutes = require('./routes/private/owner-routes');
 const scheduleRoutes = require('./routes/private/schedule-routes');
 const servicesRoutes = require('./routes/private/services-routes');
 const visitorRouter = require('./routes/public/visitor-routes');
+const apiRoutes = require('./routes/api/apiRoutes');
 
 app.use('/', index);
 app.use('/', authRoutes);
@@ -124,6 +124,8 @@ app.use('/owner', ownerRoutes);
 app.use('/schedules', scheduleRoutes);
 app.use('/services', servicesRoutes);
 app.use('/visitor', visitorRouter);
+app.use('/api', apiRoutes);
+
 
 app.listen(process.env.PORT, () => {
   console.log('Server listen', process.env.PORT);
