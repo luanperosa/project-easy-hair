@@ -13,44 +13,34 @@
     <div class="container row">
       <div class="col m6 s12">
       <h3>{{ saloonName }}</h3>
-    {{#with address}}
-      <p>{{ street }} - {{ city }} - {{ state }} - {{ zipcode }}</p> 
-    {{/with}}
-      <p>{{ businessHours }}</p>
-      <p>{{ saloonEmail }}</p>
-      <p>{{ contactNumber }}</p>
+      <p><strong>Endereço: </strong> {{ fullAddress }}</p>
+      <p><strong>Horário de Funcionamento:</strong> {{ businessHours }}</p>
+      <p><strong>Email:</strong> {{ saloonEmail }}</p>
+      <p><strong>Telefone:</strong> {{ contactNumber }}</p>
+      <p><a href="#">Instagram</a></p>
     </div>
       <div class="col m6 s12">
-        {{#if imagePath}}
-          <img class="responsive-img" src="{{ imagePath }}" >
-        {{else}}
-          <img id="no-image" class="responsive-img" src="/images/no-image.jpg" alt=""> 
-        {{/if}}
+      <div class="carousel carousel-slider">
+      {{#if imageGallery}}
+      {{#each imageGallery}}
+        <a class="carousel-item responsive-img"><img src="{{ this }}"></a>
+      {{/each}}
+      {{else}}
+        <img id="no-image" class="responsive-img" src="/images/no-image.jpg" alt=""> 
+      {{/if}}
+      </div>
 
       </div>
     {{/with }}
   </div>
   
-{{!-- {{#if imageGallery}}
-  <div class="carousel">
-    {{#each imageGallery}}
-    <a class="carousel-item"><img src="{{ image }}"></a>
 
-    {{/each}}
-  </div>
-{{/if }} --}}
-<div class="container">
-  {{!-- <ul> --}}
-    <div class="carousel carousel-slider">
-    {{!-- <li>list of images</li> --}}
-    {{#each currentSaloon.imageGallery}}
-      {{!-- <li><img src="{{ this }}"></li> --}}
-      <a class="carousel-item"><img src="{{this}}"></a>
-    {{/each}}
-  {{!-- </ul> --}}
+{{!-- {{#each currentSaloon.imageGallery}}
+<div class="carousel carousel-slider">
+  <a class="carousel-item responsive"><img src="{{ this }}"></a>
+{{/each}}
+</div> --}}
 
-    </div>
-</div>
 
 
 <div class="container">
@@ -85,12 +75,3 @@
 
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.carousel');
-    {{!-- var instances = M.Carousel.init(elems, options); --}}
-    var instance = M.Carousel.init({
-    fullWidth: true
-  });
-  });
-</script>
