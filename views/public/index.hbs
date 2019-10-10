@@ -7,11 +7,19 @@
   {{#if success}}
     <div class="card-panel teal lighten-4">{{success}}</div>
   {{/if}}
+
+  <label for="filterSaloon">Filtrar salões por:</label>
+  <select name="statusFilter" id="filterSaloon">
+    <option value="">Escolha um filtro</option>
+    <option value="ratingFromGoogle">Avaliação do Google</option>
+    <option value="Distance">Menor Distância (em implementação)</option>
+    <option value="Customer">Já sou cliente</option>
+  </select>
   
 </div>
 
   <div class="container">
-    <div class="row">
+    <div class="row" id="saloon-sorted-list">
  
       {{#each listOfSaloon}}
 
@@ -40,5 +48,36 @@
       </a>
       </div>
       {{/each}}
+
+      <hr><br>
     </div>
-</div>
+</div> 
+
+{{!-- FILTER BY RATING --}}
+     {{!-- {{#each listOfSaloonSorted}}
+
+      <div class="col s12 m7" id="sizeCard">
+      <div class="card blue-grey darken-1">
+      <a href="/visitor/{{ this._id }}">
+        <div class="card-image">
+          {{#if imagePath}}
+          <img class="responsive-img" src="{{ imagePath }}" id="imageCard">
+        {{else}}
+          <img id="no-image" class="responsive-img" src="/images/no-image.jpg" alt=""> 
+        {{/if}}
+          
+        </div>
+        <div class="card-content">
+          <span class="card-title lime-text text-lighten-5">{{ saloonName }}</span>
+          <p class="lime-text text-lighten-5">Avaliação do Google: {{ ratingFromGoogle }}</p>
+          <p class="lime-text text-lighten-5">{{ fullAddress }}</p>
+        </div>
+      </div>
+      </a>
+      </div>
+      {{/each}} --}}
+
+
+   
+<!-- JavaScript -->
+<script src="/javascripts/index.js"></script>
