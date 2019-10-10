@@ -70,6 +70,15 @@
 </table>
 </div>
 
+<div>
+  <ul>
+    {{#each currentSaloon.reviewsFromGoogle}}
+    <li>{{name}}</li>
+    <li>{{text}}</li>
+    {{/each}}
+  </ul>
+</div>
+
 <br><br>
 <div class="container row">
   {{#if currentSaloon.reviewsFromGoogle}}

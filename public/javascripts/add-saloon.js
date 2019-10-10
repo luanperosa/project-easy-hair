@@ -1,6 +1,6 @@
 window.onload = () => {
   
-  // markCurrentLocation();
+  
   setInitialMap();
   
   const inputSearchAddress = document.getElementById('inputAddressQuery');
@@ -27,13 +27,13 @@ window.onload = () => {
       // const placeId = geocodeRes.data.results[0].place_id;
       // addSingleMarker(saloonLocation); /* addSingleMarker(coord); */
       // map.setCenter(saloonLocation);
-      // await placeDetails(placeId);
-      // await placeDetails(placeId);
+      
+      // await getPlaceDetails(placeId);
       // document.getElementById('formatted-address').innerHTML += `
       // ${formattedAddress}
       // `;
       console.log('response', response, saloonLocation, formattedAddress, placeId);
-      // addMarkerPlaces(places);
+      // addMarkers(places);
       findPlaces(address);
       document.getElementById('inputAddressQuery').value = '';
     } catch (error) {

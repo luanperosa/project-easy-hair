@@ -9,7 +9,7 @@ router.get('/:saloonID', async (req, res) => {
   try {
     const currentSaloon = await Saloon.findById(saloonID);
     const currentService = await Service.find({ saloonId: saloonID });
-    // console.log(`This is the current Saloon: ${currentSaloon}`);
+    console.log(`This is the current Saloon: ${currentSaloon}`);
     res.render('public/saloon-page', { currentSaloon, currentService });
   } catch (error) {
     throw new Error(error);
