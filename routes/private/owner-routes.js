@@ -151,6 +151,7 @@ router.post('/my-saloon/:id/delete', checkOwner, async (req, res) => {
   const { id } = req.params;
   try {
     await Saloon.findByIdAndRemove(id);
+    req.flash('success', 'Salão deletado com sucesso!');
     res.redirect('/owner/my-saloon');
   } catch (error) {
     throw new Error(error);

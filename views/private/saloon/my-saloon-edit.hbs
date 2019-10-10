@@ -96,7 +96,6 @@
     <input type="text" name="inputAddressQuery" id="inputAddressQuery" placeholder="Pesquisar" aria-label="Search for a spot" aria-describedby="search-spot">
     <div>
       <button id="searchAddressQuery"  class="waves-effect waves-light btn" type="submit"><i class="material-icons medium left">search</i>Pesquisar</button>
-      <button id="addAddressQuery"  class="waves-effect waves-light btn blue lighten-2"><i class="material-icons medium left">add</i>Preencher com esse endereço</button>
     </div>
     
     {{!-- <ul id="queryResult"></ul> --}}
@@ -175,8 +174,10 @@
     <div id="reviewsFromGoogle"></div>
     <br><br>
     <button class="btn waves-effect waves-light" type="submit">Editar meu salão<i class="material-icons right">send</i></button>
-
   </form>
+    <form class="col s8 offset-s2" action="/owner/my-saloon/{{ this._id }}/delete" method="POST">
+      <button class="btn-small waves-effect waves-light red darked-4 inline-btn" type="submit">Deletar este salão</button>
+    </form>
 
 </div>
 
