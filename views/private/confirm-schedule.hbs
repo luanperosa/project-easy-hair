@@ -1,5 +1,12 @@
 <div class="container">
 
+{{#if error}}
+  <div class="card-panel red lighten-4">{{error}}</div>
+{{/if}}
+{{#if success}}
+  <div class="card-panel teal lighten-4">{{success}}</div>
+{{/if}}
+
 <div class="row container red lighten-5">
     <h2 class="center">Agendar horario</h2>
     <form class="col s8 offset-s2" action="/schedules/{{currentSaloon}}/{{currentService}}/create-schedule" method="POST">
@@ -35,15 +42,7 @@
     
       </div>
       
-      
-      {{#if errorMessage}}
-      <p>{{errorMessage}}</p>
-      {{/if}}
 
-      {{#if message}}
-      <p>{{message}}</p>
-      {{/if}}
-  
       <button class="btn waves-effect waves-light" type="submit">Confirmar agendamento<i class="material-icons right">send</i></button>
     </form>
   </div>

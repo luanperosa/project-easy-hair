@@ -21,9 +21,9 @@ router.post('/:saloonId/add', async (req, res) => {
   } = req.body;
   const { saloonId } = req.params;
   console.log(`this is the req.params2: ${req.params.saloonId}`);
-  if (!serviceName || !serviceDuration || !servicePrice || !serviceOrder ) {
+  if (!serviceName || !serviceDuration || !servicePrice) {
     req.flash('error', 'Todos os campos devem ser preenchidos');
-    res.redirect('back');
+    return res.redirect('back');
   }
 
   try {
