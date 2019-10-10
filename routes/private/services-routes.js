@@ -65,4 +65,16 @@ router.post('/:id', async (req, res) => {
   }
 });
 
+router.post('/:id/delete', checkOwner, async (req, res) => {
+  const { id } = req.params;
+  const service = await Service.findById(id)
+  try {
+    await Service.findByIdAndRemove(id);
+    req.flash('success', 'Serviço deletado com sucesso');
+    res.redirect(`/owner/my-saloon/${service.saloonId}`);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 module.exports = router;

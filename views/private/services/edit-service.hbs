@@ -30,12 +30,12 @@
           <label for="servicePrice">Preço do Serviço R$</label>
         </div>
       </div>
-      <div class="row">
+      {{!-- <div class="row">
         <div class="input-field col s12">
           <input id="ordem" name="serviceOrder" type="number" class="validate" value="{{ currentService.serviceOrder }}">
           <label for="ordem">Ordem do Serviço na Tabela</label>
         </div>
-      </div>
+      </div> --}}
       
 	<div class="container">
 		{{#if error}}
@@ -48,6 +48,11 @@
 
       <button class="btn waves-effect waves-light" type="submit">Salvar<i class="material-icons right">send</i></button>
     </form>
+       </form>
+    <form class="col s8 offset-s2" action="/services/{{ currentService._id }}/delete" method="POST">
+  <br>
+    <button class="btn-small waves-effect waves-light red" type="submit">Deletar Serviço</button>
+  </form>
   </div>
 
   </div>
