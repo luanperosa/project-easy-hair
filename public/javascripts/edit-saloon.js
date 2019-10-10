@@ -1,6 +1,4 @@
 window.onload = () => {
-  
-  // markCurrentLocation();
   setInitialMap();
   
   const mySaloonAddress = document.getElementById('fullAddress');

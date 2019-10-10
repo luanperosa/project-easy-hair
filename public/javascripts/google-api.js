@@ -106,7 +106,6 @@ function initMap() {
   });
 }
 
-// former function markCurrentLocation
 function setInitialMap() {
   const infoWindow = new google.maps.InfoWindow();
   marker = new google.maps.Marker({ pos, map });
@@ -174,7 +173,7 @@ function addMarker(places) {
   map.fitBounds(bounds);
 }
 
-function addMarkerPlaces(places) {
+function addMarkers(places) {
   const infoWindow = new google.maps.InfoWindow();
   const bounds = new google.maps.LatLngBounds();
   const contentString = [];
@@ -198,7 +197,7 @@ function addMarkerPlaces(places) {
     });
 
     marker[i].addListener('click', () => {
-      placeDetails(place.place_id);
+      getPlaceDetails(place.place_id);
     });
 
     marker[i].addListener('mouseout', () => {
@@ -229,7 +228,7 @@ async function findPlaces(text) {
   const service = new google.maps.places.PlacesService(map);
   await service.textSearch(request, (places, status) => {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      addMarkerPlaces(places);
+      addMarkers(places);
       document.getElementById('queryResult').innerHTML = '';
       places.forEach((place, index) => {
         
@@ -240,7 +239,7 @@ async function findPlaces(text) {
 
         document.getElementById('queryResult').innerHTML += `
         <tr>
-          <td>${place.name}</td>
+          <td><strong>${place.name}<strong></td>
           <td>${place.formatted_address}</td>
           <td class="fillListButton btn waves-effect waves-light" value="${index}">Adicionar</td>  
         </tr>
@@ -250,7 +249,7 @@ async function findPlaces(text) {
       addButton.forEach((button, index) => {
         button.onclick = function () {
           
-          placeDetails(places[index].place_id);
+          getPlaceDetails(places[index].place_id);
           map.setCenter(places[index].geometry.location);
           // addSingleMarker(places[index].geometry.location);
           document.getElementById('map').scrollIntoView();
@@ -261,7 +260,7 @@ async function findPlaces(text) {
 }
 
 
-function placeDetails(id) {
+function getPlaceDetails(id) {
   const request = {
     placeId: id,
   };

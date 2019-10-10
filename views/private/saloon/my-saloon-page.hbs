@@ -20,7 +20,7 @@
       {{#equal ratingFromGoogle 0}}
       <p><strong>Avaliação do Google:</strong> {{ ratingFromGoogle}} (Não há avaliação no Google)</p>
       {{else}}
-      <p><strong>Avaliação do Google:</strong> {{ ratingFromGoogle}}</p>
+      <p><strong>Avaliação do Google:</strong> {{ ratingFromGoogle}}/5</p>
       {{/equal}}
       {{#if instagramProfile}}
       <p><a target="_blank" href="https://www.instagram.com/{{ instagramProfile }}">Ir para página do Instagram</a></p>
@@ -92,7 +92,7 @@
     <div class="carousel-item  red lighten-2 white-text card-reviews">
       <p class="right-align">{{when}}</p>
       <h4>{{name}}</h4>
-      <p>Avaliação: {{rating}} </p>
+      <p>Avaliação: {{rating}}/5 </p>
       
       <p>" {{text}} "</p>
 
