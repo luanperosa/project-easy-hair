@@ -21,8 +21,16 @@
 width: 50%;
 }
 
+
 #imageCard {
 max-height:200px;
 height: auto;
 }
+
+
+ #imageCard {
+  max-height:200px;
+  height: auto;
+  
+ }
 
