@@ -13,7 +13,7 @@ const newSaloon = new Schema({
   instagramProfile: { type: String },
   placeID: { type: String }, /* NEW */
   reviewsFromGoogle: { type: Array }, /* NEW */
-  ratingFromGoogle: { type: Number }, /* NEW */
+  ratingFromGoogle: { type: Number, default: 0 }, /* NEW */
   userID: { type: Schema.Types.ObjectId, ref: 'User' },
 },
 {

@@ -20,7 +20,7 @@ function initMap() {
       lng: -46.660170,
     };
   }
-  console.log('pos', pos);
+  
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: -23.561682, lng: -46.660170 },
     zoom: 17,
@@ -184,7 +184,7 @@ function addMarkerPlaces(places) {
   for (let i = 0; i < places.length; i += 1) {
     const place = places[i];
     const position = place.geometry.location;
-    // console.log(place.name, place.formatted_address);
+    
     contentString[i] = `
     <div>${place.name}</div>
     <div>${place.formatted_address}</div>
@@ -221,28 +221,12 @@ function deleteMarkers() {
   }
 }
 
-async function geocode(location) {
-  try {
-    return await axios
-      .get('https://maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-          address: location,
-          key: 'AIzaSyCQpuEpO4UtIbYaCSI_-v9_bBuxOgTMbKw',
-          region: 'br',
-        },
-      });
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 async function findPlaces(text) {
   const request = {
     location: pos,
-    // radius: '500',
     query: text,
-    // bounds: 'strictbounds',
-    // type: ['restaurant'],
+ 
   };
   const service = new google.maps.places.PlacesService(map);
   await service.textSearch(request, (places, status) => {
@@ -250,7 +234,7 @@ async function findPlaces(text) {
       addMarkerPlaces(places);
       document.getElementById('queryResult').innerHTML = '';
       places.forEach((place, index) => {
-        console.log('places', place);
+        
         // <li class="addPlace">${place.name} ${place.formatted_address}
         // <input type="hidden" value="${index}">
         // <button class="fillListButton btn waves-effect waves-light">Adicionar este endereço</button>
@@ -267,7 +251,7 @@ async function findPlaces(text) {
       const addButton = document.querySelectorAll('.fillListButton');
       addButton.forEach((button, index) => {
         button.onclick = function () {
-          // console.log(index);
+          
           placeDetails(places[index].place_id);
           map.setCenter(places[index].geometry.location);
           // addSingleMarker(places[index].geometry.location);
@@ -282,7 +266,6 @@ async function findPlaces(text) {
 function placeDetails(id) {
   const request = {
     placeId: id,
-    // fields: ['name', 'rating', 'formatted_phone_number', 'geometry'],
   };
 
   service = new google.maps.places.PlacesService(map);
@@ -290,9 +273,7 @@ function placeDetails(id) {
 
   function callback(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      console.log('place details', place);
       const coord = JSON.parse(JSON.stringify(place.geometry.location).toString());
-      console.log('place coord', coord);
       let workTime = '';
       if (typeof (place.opening_hours) !== 'undefined') {
         place.opening_hours.weekday_text.forEach((day) => {
@@ -309,7 +290,7 @@ domingo:
         `;
       }
       document.getElementById('clearForm').innerHTML = `
-      <button id="clearFormBtn" class="btn btn-info">Limpar Cadastro</button>
+      <p id="clearFormBtn" class="btn">Limpar Cadastro</p>
       `;
       document.getElementById('clearFormBtn').onclick = function () {
         clearFields();
@@ -324,10 +305,8 @@ domingo:
 
       document.getElementById('businessHours').value = workTime;
       document.getElementById('saloonPosition').value = JSON.stringify([coord.lng, coord.lat]);
-      console.log(document.getElementById('saloonPosition').value);
       document.getElementById('placeID').value = place.place_id;
       document.getElementById('ratingFromGoogle').value = place.rating;
-      console.log(typeof (place.photos), typeof (typeof (place.photos)));
       if (typeof (place.photos) !== 'undefined') {
         place.photos.forEach((photo) => {
           document.getElementById('imageGallery').innerHTML += `
@@ -335,10 +314,8 @@ domingo:
           `;
         });
       }
-      console.log(typeof (place.reviews));
       if (typeof (place.reviews) !== 'undefined') {
         place.reviews.forEach((review) => {
-          console.log(review);
           const {
             author_name, rating, relative_time_description, text,
           } = review;
@@ -353,8 +330,6 @@ domingo:
           <input type="hidden" class="reviewsFromGoogleClass" name="reviewsFromGoogle[]" type="text" value="${reviewHeader}">`;
           document.getElementById('reviewsFromGoogle').innerHTML += `
           <input type="hidden" class="reviewsFromGoogleClass" name="reviewsFromGoogleText[]" type="text" value="${reviewText}">`;
-          // console.log(reviewString, typeof (reviewString));
-          console.log(document.getElementById('reviewsFromGoogle'));
         });
       }
     }

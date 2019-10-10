@@ -34,8 +34,12 @@ router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('pho
   // } else {
     // const imageName = req.file.originalname;
     // const imagePath = req.file.url;
-  // }
-  console.log(typeof (ratingFromGoogle))
+    // }
+    console.log(`One ratingFromGoogle ${ratingFromGoogle}`);
+  if (ratingFromGoogle === 'undefined') {
+    ratingFromGoogle = 0;
+  }
+  console.log(`Two ratingFromGoogle ${ratingFromGoogle}`);
   // if (placeID) {
   if (typeof (reviewsFromGoogle) !== 'undefined') {
     const reviewArray = [];
@@ -126,8 +130,9 @@ router.post('/my-saloon/:id/edit', checkOwner, uploadCloud.single('photo'), asyn
   const imageName = req.file.originalname;
   const imagePath = req.file.url;
 
-  if (saloonName === '' || saloonEmail === '' || contactNumber === '') {
-    res.render('private/user/user-edit', { errorMessage: 'Todos os campos devem ser preenchidos' });
+  if (saloonName === '' || contactNumber === '') {
+    req.flash('error', 'Todos os campos devem ser preenchidos');
+    res.redirect('back');
     return;
   }
 
