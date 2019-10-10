@@ -19,13 +19,15 @@ window.onload = () => {
       const address = document.getElementById('inputAddressQuery').value;
       console.log('address', address);
       findPlaces(address);
-
-      const response = await geocode(address);
-      console.log('response', response);
-      const saloonLocation = response.data.results[0].geometry.location; /* const coord = response.data.results[0].geometry.location; */
-      const formattedAddress = response.data.results[0].formatted_address;
-      const placeId = response.data.results[0].place_id;
-      addSingleMarker(saloonLocation); /* addSingleMarker(coord); */
+      
+      // const geocodeRes = await geocode(address);
+      // console.log('typeof geocodeRes', typeof(geocodeRes));
+      // const saloonLocation = geocodeRes.data.results[0].geometry.location; /* const coord = response.data.results[0].geometry.location; */
+      // const formattedAddress = geocodeRes.data.results[0].formatted_address;
+      // const placeId = geocodeRes.data.results[0].place_id;
+      // addSingleMarker(saloonLocation); /* addSingleMarker(coord); */
+      // map.setCenter(saloonLocation);
+      // await placeDetails(placeId);
       // await placeDetails(placeId);
       // document.getElementById('formatted-address').innerHTML += `
       // ${formattedAddress}
@@ -36,24 +38,6 @@ window.onload = () => {
       document.getElementById('inputAddressQuery').value = '';
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  document.getElementById('Endereço').onfocusout = async function () {
-    document.getElementById('addressChecker').innerHTML = '';
-    const addressValue = document.getElementById('Endereço').value;
-    if(addressValue.length > 6) {
-      const geoAddress = addressValue;
-      const geoInfo = await geocode(geoAddress);
-      if (geoInfo.data.results.length) {
-        const geoCoord = geoInfo.data.results[0].geometry.location;
-        addSingleMarker(geoCoord);
-        document.querySelector('#saloonPosition').value = JSON.stringify([geoCoord.lat, geoCoord.lng]);
-        console.log(document.getElementById('saloonPosition').value);
-        document.getElementById('addressChecker').innerHTML = '';
-      } else {
-        document.getElementById('addressChecker').innerHTML = 'Endereco nao eh valido';
-      }
     }
   };
 };

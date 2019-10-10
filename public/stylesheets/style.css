@@ -9,21 +9,20 @@
 }
 
 #map {
-  height: 500px;
-  width: 100%;
- }
-
- .inline-btn {
-   display: inline;
- }
-
- #sizeCard {
+  height: 400px;
   width: 50%;
  }
 
- #imageCard {
-  max-height:200px;
-  height: auto;
-  
- }
+.inline-btn {
+  display: inline;
+}
+
+#sizeCard {
+width: 50%;
+}
+
+#imageCard {
+max-height:200px;
+height: auto;
+}
 

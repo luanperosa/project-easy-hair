@@ -1,4 +1,11 @@
 <div class="container">
+
+  {{#if error}}
+    <div class="card-panel red lighten-4">{{error}}</div>
+  {{/if}}
+  {{#if success}}
+    <div class="card-panel teal lighten-4">{{success}}</div>
+  {{/if}}
    <p>Voltar para <a href="/user/profile">página de perfil</a></p>
   <div class="row">
 {{#each saloonByOwner }}
