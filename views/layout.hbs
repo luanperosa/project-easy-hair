@@ -25,6 +25,9 @@
             <li><a href="/signup">Cadastrar</a></li>
           {{else}}
             <li><a href="/user/profile"><i class="material-icons left">account_circle</i>{{ currentUser.userName }}</a></li>
+            {{#equal currentUser.role 'Owner'}}
+            <li><a href="/owner/my-saloon">Meus Salões</a></li>
+            {{/equal}}
             <li><a href="/logout">Sair</a></li>
           {{/unless}}
         </ul>
@@ -40,6 +43,9 @@
             <li><a href="/signup">Cadastrar</a></li>
           {{else}}
             <li><a href="/user/profile"><i class="material-icons left">account_circle</i>{{ currentUser.userName }}</a></li>
+            {{#equal currentUser.role 'Owner'}}
+            <li><a href="/owner/my-saloon">Meus Salões</a></li>
+            {{/equal}}
             <li><a href="/logout">Sair</a></li>
           {{/unless}}
         </ul>
