@@ -10,7 +10,7 @@ const newSaloon = new Schema({
   imageName: { type: String, required: false },
   imagePath: { type: String, required: false },
   imageGallery: { type: Array }, /* NEW */
-  instagramProfile: { type: String },
+  instagramProfile: { type: String, require: false },
   placeID: { type: String }, /* NEW */
   reviewsFromGoogle: { type: Array }, /* NEW */
   ratingFromGoogle: { type: Number, default: 0 }, /* NEW */

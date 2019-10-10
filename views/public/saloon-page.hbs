@@ -23,7 +23,9 @@
       {{else}}
       <p><strong>Avaliação do Google:</strong> {{ ratingFromGoogle}}</p>
       {{/equal}}
-      <p><a href="#">Instagram</a></p>
+      {{#if instagramProfile}}
+      <p><a href="https://www.instagram.com/{{ instagramProfile }}">Ir para página do Instagram</a></p>
+      {{/if}}
 
     </div>
       <div class="col m6 s12">

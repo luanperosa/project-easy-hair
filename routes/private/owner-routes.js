@@ -125,7 +125,7 @@ router.get('/my-saloon/:id/edit', checkOwner, async (req, res) => {
 router.post('/my-saloon/:id/edit', checkOwner, uploadCloud.single('photo'), async (req, res) => {
   const { id } = req.params;
   const {
-    saloonName, saloonEmail, contactNumber, businessHours, fullAddress,
+    saloonName, saloonEmail, instagramProfile, contactNumber, businessHours, fullAddress,
   } = req.body;
   const imageName = req.file.originalname;
   const imagePath = req.file.url;
@@ -138,7 +138,7 @@ router.post('/my-saloon/:id/edit', checkOwner, uploadCloud.single('photo'), asyn
 
   try {
     await Saloon.findByIdAndUpdate(id, {
-      saloonName, saloonEmail, contactNumber, businessHours, fullAddress, imageName, imagePath,
+      saloonName, saloonEmail, instagramProfile, contactNumber, businessHours, fullAddress, imageName, imagePath,
     });
     req.flash('success', 'Salão editado com sucesso');
     res.redirect('/owner/my-saloon');
