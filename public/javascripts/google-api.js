@@ -1,5 +1,7 @@
 let pos;
+let marker;
 let markers = [];
+let map;
 
 function initMap() {
   // Try HTML5 geolocation.
@@ -18,16 +20,11 @@ function initMap() {
       lng: -46.660170,
     };
   }
-
+  console.log('pos', pos);
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: -23.561682, lng: -46.660170 },
     zoom: 17,
     gestureHandling: 'cooperative',
-    mapTypeControl: true,
-    mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-      mapTypeIds: ['roadmap', 'satellite'],
-    },
     styles: [
       { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
       { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
@@ -111,12 +108,13 @@ function initMap() {
   });
 }
 
-// former function markCurrentLocation 
+// former function markCurrentLocation
 function setInitialMap() {
-  // const infoWindow = new google.maps.InfoWindow();
-  // infoWindow.setPosition(pos);
-  // // infoWindow.setContent('Você está aqui');
-  // // infoWindow.open(map);
+  const infoWindow = new google.maps.InfoWindow();
+  marker = new google.maps.Marker({ pos, map });
+  infoWindow.setPosition(pos);
+  infoWindow.setContent('Você está aqui');
+  // infoWindow.open(map);
   addSingleMarker(pos);
   map.setCenter(pos);
 }
@@ -124,17 +122,16 @@ function setInitialMap() {
 async function addSingleMarker(coords, newLocalSearch) {
   deleteMarkers();
 
-  const marker = new google.maps.Marker({
+  marker = new google.maps.Marker({
     position: coords,
     map,
     draggable: true,
     animation: google.maps.Animation.DROP,
-    icon,
+
   });
   map.setCenter(coords);
   markers.push(marker); /* WHY? */
   marker.addListener('click', toggleBounce);
-
 }
 
 function toggleBounce() {
@@ -143,7 +140,7 @@ function toggleBounce() {
   } else {
     marker.setAnimation(google.maps.Animation.BOUNCE);
   }
-}  
+}
 
 function addMarker(places) {
   infoWindow = new google.maps.InfoWindow();
@@ -193,7 +190,7 @@ function addMarkerPlaces(places) {
     <div>${place.formatted_address}</div>
     `;
     marker[i] = new google.maps.Marker({
-      position: position,
+      position,
       map,
     });
 
@@ -217,26 +214,14 @@ function addMarkerPlaces(places) {
 function deleteMarkers() {
   if (typeof markers !== 'undefined') {
   // if (markers.length > 0) {
-  for (let i = 0; i < markers.length; i += 1) {
-    markers[i].setMap(null);
-  }
-  markers = [];
+    for (let i = 0; i < markers.length; i += 1) {
+      markers[i].setMap(null);
+    }
+    markers = [];
   }
 }
 
 async function geocode(location) {
-  //   try {
-  //     geocoder.geocode({
-  //     address: location,
-  //     region: 'br',
-  //   }, (result, status) => {
-  //     if (status == 'OK') {
-  //       return result;
-  //     }
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }  
   try {
     return await axios
       .get('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -309,9 +294,20 @@ function placeDetails(id) {
       const coord = JSON.parse(JSON.stringify(place.geometry.location).toString());
       console.log('place coord', coord);
       let workTime = '';
-      place.opening_hours.weekday_text.forEach((day) => {
-        workTime += `${day.toString()}\n`;
-      });
+      if (typeof (place.opening_hours) !== 'undefined') {
+        place.opening_hours.weekday_text.forEach((day) => {
+          workTime += `${day.toString()}\n`;
+        });
+      } else {
+        workTime += `segunda-feira: 
+terça-feira: 
+quarta-feira:
+quinta-feira:
+sexta-feira:
+sábado:
+domingo:
+        `;
+      }
       document.getElementById('clearForm').innerHTML = `
       <button id="clearFormBtn" class="btn btn-info">Limpar Cadastro</button>
       `;
@@ -319,10 +315,13 @@ function placeDetails(id) {
         clearFields();
       };
       document.getElementById('saloonName').value = place.name;
-      
-      document.getElementById('contactNumber').value = place.formatted_phone_number;
+      if (typeof (place.formatted_phone_number) === 'undefined') {
+        document.getElementById('contactNumber').value = 'Insira seu telefone';
+      } else {
+        document.getElementById('contactNumber').value = place.formatted_phone_number;
+      }
       document.getElementById('fullAddress').value = place.formatted_address;
-  
+
       document.getElementById('businessHours').value = workTime;
       document.getElementById('saloonPosition').value = JSON.stringify([coord.lng, coord.lat]);
       console.log(document.getElementById('saloonPosition').value);

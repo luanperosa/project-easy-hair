@@ -9,18 +9,14 @@
   {{/if}}
 
   <div class="row">
-    <div class="col offset-l1 l10 s12">
+    <div class="col m6 s12">
       <label class="sr-only" for="inputAddressQuery">Pesquise seu estabelecimento ou insira seu endereço</label>
       <input type="text" name="inputAddressQuery" id="inputAddressQuery" placeholder="Pesquisar" aria-label="Search for a spot" aria-describedby="search-spot">
       <div>
-        <button id="searchAddressQuery"  class="waves-effect waves-light btn" type="submit"><i class="material-icons medium right">search</i>Pesquisar</button>
+        <button id="searchAddressQuery"  class="waves-effect waves-light btn" type="submit"><i class="material-icons medium left">search</i>Pesquisar</button>
+        <button id="addAddressQuery"  class="waves-effect waves-light btn blue lighten-2"><i class="material-icons medium left">add</i>Preencher com esse endereço</button>
       </div>
-    </div>
-  </div>
-  <br>
-
-  <div class="conntainer row">
-    <div class="col s12 l12">
+      
       {{!-- <ul id="queryResult"></ul> --}}
       <table class="centered striped">
         <thead>
@@ -35,14 +31,16 @@
 
       </tbody>
       </table>
+  
     </div>
-  </div>
+      <div id="map" class="col m6 s12"></div>
+
+</div>
+  
 </section>
 
 
-<div class="container">
-  <div id="map" class="col s12"></div>
-</div>
+
 
 <div class="row container red lighten-5">
   <h4 class="center-align">Dados do Salão</h4>
@@ -115,9 +113,6 @@
     <label for="coverPhoto">Selecione uma Foto de Capa</label><br>
     <input id="coverPhoto" type="file" name="photo" class="">
       {{!-- <br><br> --}}
-    {{#if message}}
-      <div class="error-message">{{ message }}</div>
-    {{/if}}
     {{!-- <br> --}}
     <input type="hidden" id="saloonPosition" name="saloonPosition" type="text">
     <input type="hidden" id="placeID" name="placeID" type="text">
