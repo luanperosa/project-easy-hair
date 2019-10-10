@@ -82,6 +82,47 @@
 
 </div>   --}}
 
+  <section class="container">
+    
+  <h1 class="center-align">Editar meu salão</h1>
+  {{#if error}}
+    <div class="card-panel red lighten-4">{{error}}</div>
+  {{/if}}
+  {{#if success}}
+    <div class="card-panel teal lighten-4">{{success}}</div>
+  {{/if}}
+
+<div class="row">
+  <div class="col m6 s12">
+    <label class="sr-only" for="inputAddressQuery">Digite seu novo endereço</label>
+    <input type="text" name="inputAddressQuery" id="inputAddressQuery" placeholder="Pesquisar" aria-label="Search for a spot" aria-describedby="search-spot">
+    <div>
+      <button id="searchAddressQuery"  class="waves-effect waves-light btn" type="submit"><i class="material-icons medium left">search</i>Pesquisar</button>
+      <button id="addAddressQuery"  class="waves-effect waves-light btn blue lighten-2"><i class="material-icons medium left">add</i>Preencher com esse endereço</button>
+    </div>
+    
+    {{!-- <ul id="queryResult"></ul> --}}
+    <table class="centered striped">
+      <thead>
+        <tr>
+            <th>Nome Estabelecimento</th>
+            <th>Endereço</th>
+            <th>Preencher cadastro</th> 
+        </tr>
+        
+    </thead>
+    <tbody id="queryResult">
+
+    </tbody>
+    </table>
+
+  </div>
+    <div id="map" class="col m6 s12"></div>
+
+</div>
+  
+</section>
+
 <div class="row container red lighten-5">
   <h4 class="center-align">Editar este Salão</h4>
   <br>
@@ -158,13 +199,11 @@
 
 </div>
 
-<div id="map" class="col m12 s12"></div>
-
 <div class="container">
   <p class="left">Voltar para o <a href="/user/profile"> meu perfil</a></p>
 </div>
 
 
   <!-- JavaScript -->
-  <script src="/javascripts/edit-saloon.js"></script>
+  <script src="/javascripts/add-saloon.js"></script>
 

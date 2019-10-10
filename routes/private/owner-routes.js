@@ -28,15 +28,16 @@ router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('pho
   let {
     saloonName, saloonEmail, fullAddress, saloonPosition, contactNumber, businessHours, imageGallery, instagramProfile, placeID, reviewsFromGoogle, reviewsFromGoogleText, ratingFromGoogle,
   } = req.body;
-  if (typeof (req.file) !== 'undefined') {
+  // if (typeof (req.file) !== 'undefined') {
     const imageName = req.file.originalname;
     const imagePath = req.file.url;
-  } else {
-    const imageName = req.file.originalname;
-    const imagePath = req.file.url;
-  }
-
-  if (placeID) {
+  // } else {
+    // const imageName = req.file.originalname;
+    // const imagePath = req.file.url;
+  // }
+  console.log(typeof (ratingFromGoogle))
+  // if (placeID) {
+  if (typeof (reviewsFromGoogle) !== 'undefined') {
     const reviewArray = [];
     reviewsFromGoogle.forEach((review, index) => {
       let reviewString = review.replace(/\*/g, '"');
@@ -47,6 +48,8 @@ router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('pho
     reviewsFromGoogle = reviewArray;
   }
 
+  
+
   // eslint-disable-next-line no-const-assign
 
   console.log(`imageGallery: ${imageGallery}
@@ -55,12 +58,12 @@ router.post('/add-saloon', ensureLogin.ensureLoggedIn(), uploadCloud.single('pho
     saloonPosition: ${saloonPosition}
     `);
 
-  const checkSaloonPlaceID = Saloon.find({ placeID });
-  if (checkSaloonPlaceID) {
-    req.flash('error', 'Este salão já está cadastrado');
-    console.log(`this is the placeID ${placeID}`);
-    return res.redirect('back');
-  }
+  // const checkSaloonPlaceID = Saloon.find({ placeID });
+  // if (checkSaloonPlaceID) {
+  //   req.flash('error', 'Este salão já está cadastrado');
+  //   console.log(`this is the placeID ${placeID}`);
+  //   return res.redirect('back');
+  // }
 
   const newSaloon = new Saloon({
     saloonName, saloonEmail, fullAddress, saloonPosition, contactNumber, businessHours, imageGallery, instagramProfile, placeID, reviewsFromGoogle, ratingFromGoogle, imageName, imagePath, userID,
