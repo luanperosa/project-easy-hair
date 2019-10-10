@@ -68,14 +68,6 @@ router.get('/my-schedule', async (req, res) => {
       });
       arrayObject.push(currentObject);
     }
-    let getHours = arrayObject[0].date.getHours();
-    console.log('este é o getHours ', getHours)
-    let getDate = arrayObject[0].date.getDate();
-    console.log('este é o getDate ', getDate)
-    let getMonth = arrayObject[0].date.getMonth();
-    console.log('este é o getMonth ', getMonth)
-    let getFullYear = arrayObject[0].date.getFullYear();
-    console.log('este é o getFullYear ', getFullYear)
 
     let currentDate = [];
     arrayObject.forEach((element) => {
@@ -98,7 +90,6 @@ router.get('/my-schedule', async (req, res) => {
       })
       currentDate.push(currentDateObject)
     })
-    console.log('este é o CurrentDate: ', currentDate);
     
     res.render('private/my-schedule', { currentDate });
   } catch (error) {

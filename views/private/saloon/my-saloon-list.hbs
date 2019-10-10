@@ -1,5 +1,8 @@
 <div class="container">
 
+   <h4>Meus Salões</h4>
+
+
   {{#if error}}
     <div class="card-panel red lighten-4">{{error}}</div>
   {{/if}}
@@ -7,6 +10,7 @@
     <div class="card-panel teal lighten-4">{{success}}</div>
   {{/if}}
    <p>Voltar para <a href="/user/profile">página de perfil</a></p>
+
   <div class="row">
 {{#each saloonByOwner }}
     <div class="col s12 m6">

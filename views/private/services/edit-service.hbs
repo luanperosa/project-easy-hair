@@ -1,38 +1,53 @@
+<div class="container">
+
 <div class="row container red lighten-5">
     <h2 class="center">Editar serviço</h2>
-    <form class="col s8 offset-s2" action="/services/{{ currentService._id }}" method="POST">
-      <div class="row">
+    <div class="col s8 push-s2" ><p><a href="/owner/my-saloon/{{this._id}}">Voltar ao Salão</p></a></div>
+    <form class="col s8 offset-s2" action="/services/{{ currentService._id }}" method="POST"><div class="row">
         <div class="input-field col s12">
-          <input placeholder="Nome do Serviço" id="serviceName" name="serviceName" type="text" class="validate" value="{{ currentService.serviceName }}">
+          <input id="serviceName" name="serviceName" type="text" class="validate" value="{{ currentService.serviceName }}">
           <label for="serviceName">Nome do Serviço</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Duração do Serviço" id="serviceDuration" name="serviceDuration" type="number" class="validate" value="{{ currentService.serviceDuration }}" min="15" step="15">
-          <label for="serviceDurantion">Duração do Serviço</label>
+          <select name="serviceDuration" class="validate">
+            <option value="{{ currentService.serviceDuration }}">{{ currentService.serviceDuration }}</option>
+            <option value="15">15 minutos</option>
+            <option value="30">30 minutos</option>
+            <option value="60">1 hora</option>
+            <option value="90">1 hora e 30 minutos</option>
+            <option value="120">2 horas</option>
+            <option value="180">2 hora e 30 minutos</option>
+            <option value="240">3 horas</option>
+          </select>
+          <label for="serviceDurantion">Selecione o tempo de serviço(min)</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Preço" id="servicePrice" name="servicePrice" type="number" class="validate" value="{{ currentService.servicePrice }}">
-          <label for="servicePrice">Preço do Serviço</label>
+          <input id="servicePrice" name="servicePrice" type="text" class="validate" value="{{ currentService.servicePrice }}">
+          <label for="servicePrice">Preço do Serviço R$</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Ordem do Serviço na Tabela" id="ordem" name="serviceOrder" type="number" class="validate" value="{{ currentService.serviceOrder }}">
+          <input id="ordem" name="serviceOrder" type="number" class="validate" value="{{ currentService.serviceOrder }}">
           <label for="ordem">Ordem do Serviço na Tabela</label>
         </div>
       </div>
       
-      {{#if errorMessage}}
-      <p>{{errorMessage}}</p>
-      {{/if}}
-  
+	<div class="container">
+		{{#if error}}
+      <div class="card-panel red lighten-4">{{error}}</div>
+		{{/if}}
+	  {{#if success}}
+		  <div class="card-panel teal lighten-4">{{success}}</div>
+		{{/if}}
+	</div>
+
       <button class="btn waves-effect waves-light" type="submit">Salvar<i class="material-icons right">send</i></button>
     </form>
   </div>
-  <div class="container">
-    <p class="left">Voltar para o <a href="/owner/my-saloon/{{this._id}}"> meu perfil</a></p>
+
   </div>
