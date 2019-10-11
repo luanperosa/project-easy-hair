@@ -1,28 +1,54 @@
+
 <div class="container">
-{{#with currentSaloon }}
-<h3>{{ saloonName }}</h3>
-  {{#with address}}
-  <p>{{ street }} - {{ city }} - {{ state }} - {{ zipcode }}</p> 
-  {{/with}}
-<p>{{ businessHours }}</p>
-<p>{{ saloonEmail }}</p>
-<p>{{ contactNumber }}</p>
-<img class="responsive-img" src="{{ imagePath }}" alt="">
-{{/with }}
+  <p><a href="/">Voltar para página inicial</a></p>
+  
+  {{#if error}}
+    <div class="card-panel red lighten-4">{{error}}</div>
+  {{/if}}
+  {{#if success}}
+    <div class="card-panel teal lighten-4">{{success}}</div>
+  {{/if}}
+</div>
 
-{{!-- {{#each currentService }} 
-  <ul>
-    <li>{{ serviceName }}</li>
-    <li>Duração(min): {{ serviceDuration }}</li>
-    <li>R$: {{ servicePrice }}</li>
-  </ul>
-{{/each}}
-</div> --}}
+  {{#with currentSaloon }}
+    <div class="container row">
+      <div class="col m6 s12">
+      <h3>{{ saloonName }}</h3>
+      <p><strong>Endereço: </strong> {{ fullAddress }}</p>
+      <p><strong>Horário de Funcionamento:</strong> {{ businessHours }}</p>
+      <p><strong>Email:</strong> {{ saloonEmail }}</p>
+      <p><strong>Telefone:</strong> {{ contactNumber }}</p>
+      {{#equal ratingFromGoogle 0}}
+      <p><strong>Avaliação do Google:</strong> {{ ratingFromGoogle}} (Não há avaliação no Google)</p>
+      {{else}}
+      <p><strong>Avaliação do Google:</strong> {{ ratingFromGoogle}}</p>
+      {{/equal}}
+      {{#if instagramProfile}}
+      <p><a target="_blank" href="https://www.instagram.com/{{ instagramProfile }}">Ir para página do Instagram</a></p>
+      {{/if}}
 
+    </div>
+      <div class="col m6 s12">
+      <div class="carousel carousel-slider">
+      {{#if imageGallery}}
+      {{#each imageGallery}}
+        <a class="carousel-item responsive-img"><img src="{{ this }}"></a>
+      {{/each}}
+      {{else}}
+        <img id="no-image" class="responsive-img" src="{{ imagePath }}" alt=""> 
+      {{/if}}
+      </div>
+
+      </div>
+    {{/with }}
+  </div>
+
+
+<div class="container">
 <table class="highlight">
   <thead>
     <tr>
-        <th>Serviço</th>
+        <th>Meus Serviços</th>
         <th>Duração (min)</th>
         <th>R$</th>
         <th>Marcar Horário</th>
@@ -42,3 +68,35 @@
   {{/each}}  
   </tbody>
 </table>
+</div>
+
+<div>
+  <ul>
+    {{#each currentSaloon.reviewsFromGoogle}}
+    <li>{{name}}</li>
+    <li>{{text}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<br><br>
+<div class="container row">
+  {{#if currentSaloon.reviewsFromGoogle}}
+  <h4 class="center-align">Avaliação de Usuários no Google:</h4>
+  <br>
+  <div class="col offset-m4 m4 s12 carousel carousel-slider center">
+   {{#each currentSaloon.reviewsFromGoogle}}
+    <div class="carousel-item  red lighten-2 white-text card-reviews">
+      <p class="right-align">{{when}}</p>
+      <h4>{{name}}</h4>
+      <p>Avaliação: {{rating}} </p>
+      
+      <p>" {{text}} "</p>
+
+    </div>
+{{/each}}
+  </div>
+    {{else}}
+  <h4 class="center-align">Não há Avaliação de Usuários no Google:</h4>
+  {{/if}}
+</div>

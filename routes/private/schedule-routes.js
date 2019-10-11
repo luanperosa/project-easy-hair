@@ -27,7 +27,8 @@ router.post('/:saloonID/:serviceID/create-schedule', async (req, res) => {
   console.log('saloonID, serviceID ', saloonID, serviceID)
   
   if(!scheduleBody) {
-    res.render('private/confirm-schedules', { errorMessage: 'Dados insuficientes, preencher todos os dados'});
+    req.flash('error', 'Dados insuficientes, preencher todos os dados');
+    res.render('private/confirm-schedules');
   }
   
   try {
@@ -36,20 +37,22 @@ router.post('/:saloonID/:serviceID/create-schedule', async (req, res) => {
     req.flash('success', 'Agendamento criado com sucesso');
     res.redirect('/user/profile');
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
 
 router.get('/my-schedule', async (req, res) => {
   const userID = req.user._id;
-
+  console.log(`this is the req user id of schedule route: ${req.user._id}`);
   if (!userID) {
-    res.render('private/my-schedule', { errorMessage: `Usuario ${userID} inexistente` });
+    res.flash('error', `Usuario ${userID} inexistente`);
+    res.render('private/my-schedule');
   }
 
   try {
     const scheduleUser = await Schedule.find({ userID });
+    console.log(`This is the scheduleUser: ${scheduleUser}`);
     let currentObject = [{
       date: String,
       service: String,
@@ -59,16 +62,45 @@ router.get('/my-schedule', async (req, res) => {
     for (let i = 0; i < scheduleUser.length; i += 1) {
       let serv =  await Service.findById(scheduleUser[i].serviceID);
       let sal = await Saloon.findById(scheduleUser[i].saloonID);
+      console.log(`This is the sal: ${i} ${typeof (sal)} ${sal}`);
+      if (sal) {
+          currentObject = new Object({
+          date: scheduleUser[i].dateOfService,
+          service: serv.serviceName,
+          saloon: sal.saloonName,
+          saloonID: sal._id,
+        });
+        arrayObject.push(currentObject);
+      } else {
+        continue;
+      }
+    
 
-      currentObject = new Object({
-        date: scheduleUser[i].dateOfService,
-        service: serv.serviceName,
-        saloon: sal.saloonName,
-        saloonID: sal._id,
-      });
-      arrayObject.push(currentObject);
     }
-    res.render('private/my-schedule', { arrayObject });
+
+    let currentDate = [];
+    arrayObject.forEach((element) => {
+      let hour = element.date.getHours();
+      let date = element.date.getDate();
+      let mounth = 1 + element.date.getMonth();
+      let year = element.date.getFullYear(); 
+      let service = element.service;
+      let saloon = element.saloon;
+      let saloonID = element.saloonID;
+
+      currentDateObject = new Object({
+        hour,
+        date,
+        mounth,
+        year,
+        service,
+        saloon,
+        saloonID
+      })
+      currentDate.push(currentDateObject);
+    })
+    
+    res.render('private/my-schedule', { currentDate });
   } catch (error) {
     throw new Error(error);
   }

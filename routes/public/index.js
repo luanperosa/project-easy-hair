@@ -17,9 +17,10 @@ module.exports = router;
 router.get('/home', async (req, res) => {
   try {
     const listOfSaloon = await Saloon.find({});
-    // console.log(`This it the listOfSaloon: ${listOfSaloon}`);
+    // const listOfSaloonSorted = await Saloon.find({}).sort({ ratingFromGoogle: -1 });
+    // console.log('listOfSaloonSorted', listOfSaloonSorted);
     res.render('public/index', { listOfSaloon });
-    console.log(`This is the req.user: ${req.user}`);
+    // console.log(`This is the req.user: ${req.user}`);
   } catch (error) {
     throw new Error(error);
   }

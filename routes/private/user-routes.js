@@ -12,7 +12,7 @@ const saltRounds = 10;
 router.get('/profile', ensureLogin.ensureLoggedIn(), async (req, res) => {
   // const { currentUser } = req.session;
   // console.log(`rota privada usuário logado ${currentUser.userName}`);
-  console.log(`This is the req.user in GET /profile: ${req.user}`);
+  // console.log(`This is the req.user in GET /profile: ${req.user}`);
   res.render('private/user-profile', req.user);
 });
 
@@ -50,8 +50,10 @@ router.post('/:id/delete', ensureLogin.ensureLoggedIn(), async (req, res) => {
   const { id } = req.params;
   try {
     await User.findByIdAndRemove(id);
-    req.logout();
-    } catch (error) {
+    req.flash('success', 'Usuário deletado com sucesso');
+    res.redirect('/home');
+    // req.logout();
+  } catch (error) {
     throw new Error(error);
   }
 });

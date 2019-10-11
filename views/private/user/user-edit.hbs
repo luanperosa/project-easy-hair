@@ -1,15 +1,11 @@
 <div class="row container red lighten-5">
   <h2 class="center">Editar minha conta</h2>
-  <div class="col s8 push-s2  red lighten-4" >
-    <p class="left">Voltar para o <a href="/"> meu perfil</a></p>
-    <p class="right"><a href='/user/edit-password '>Alterar minha senha</a></p>
-  </div>
   
   <form class="col s8 offset-s2" action="/user/{{this._id}}/edit" method="POST">
     <div class="row">
       <div class="input-field col s12">
         <input placeholder="Nome Completo" id="name" name="userName" type="text" value="{{this.userName}}">
-        <label for="name">Email</label>
+        <label for="name">Nome</label>
       </div>
     </div>
     <div class="row">
@@ -22,7 +18,7 @@
       <div class="input-field col s12">
         <input placeholder="DDD + Celular" id="cellphone" name="cellphone" type="tel" class="validate" value="{{ this.cellphone }}">
         <label for="cellphone">Celular</label>
-        <span class="helper-text" data-error="wrong" data-success="right">Siga esse formato: (xx) 12345-1234</span>
+        <span class="helper-text" data-error="wrong" data-success="right"></span>
       </div>
     </div>
 
@@ -30,11 +26,18 @@
     <p>{{errorMessage}}</p>
     {{/if}}
 
-    <button class="btn waves-effect waves-light" type="submit">Editar <i class="material-icons right">edit</i></button>
+    <button class="btn waves-effect waves-light" type="submit">Salvar<i class="material-icons right">edit</i></button>
   </form>
+  <form class="col s8 offset-s2" action="/user/edit-password" method="get">
+  <br>
+    <button class="btn-small waves-effect waves-light blue-grey darken-4" type="submit">Alterar minha senha</button>
+  </form>
+
   <form class="col s8 offset-s2" action="/user/{{ this._id }}/delete" method="POST">
-    <button class="btn-small waves-effect waves-light red darked-4" type="submit">Deletar minha conta</button>
+  <br>
+    <button class="btn-small waves-effect waves-light red" type="submit">Deletar minha conta</button>
   </form>
+  
 </div>
 
 {{!-- <form action="/user/{{this._id}}/edit" method="POST">

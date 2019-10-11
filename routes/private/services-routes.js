@@ -21,9 +21,9 @@ router.post('/:saloonId/add', async (req, res) => {
   } = req.body;
   const { saloonId } = req.params;
   console.log(`this is the req.params2: ${req.params.saloonId}`);
-  if (!serviceName || !serviceDuration || !servicePrice || !serviceOrder ) {
+  if (!serviceName || !serviceDuration || !servicePrice) {
     req.flash('error', 'Todos os campos devem ser preenchidos');
-    res.redirect('back');
+    return res.redirect('back');
   }
 
   try {
@@ -60,6 +60,18 @@ router.post('/:id', async (req, res) => {
     console.log(`This is the new Service: ${newService}`);
     res.redirect(`/owner/my-saloon/${newService.saloonId}`);
     
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+router.post('/:id/delete', checkOwner, async (req, res) => {
+  const { id } = req.params;
+  const service = await Service.findById(id)
+  try {
+    await Service.findByIdAndRemove(id);
+    req.flash('success', 'Serviço deletado com sucesso');
+    res.redirect(`/owner/my-saloon/${service.saloonId}`);
   } catch (error) {
     throw new Error(error);
   }

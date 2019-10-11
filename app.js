@@ -48,9 +48,11 @@ passport.use(new LocalStrategy({
       return next(`Esse é o err do LocalStrategy: ${err}`);
     }
     if (!user) {
+      req.flash('error', 'Endereço de email incorreto')
       return next(null, false, { errorMessage: 'Endereço de email incorreto.' });
     }
     if (!bcrypt.compareSync(password, user.password)) {
+      req.flash('error', 'Senha incorreta');
       return next(null, false, { errorMessage: 'Senha incorreta' });
     }
     return next(null, user);
@@ -113,6 +115,7 @@ const ownerRoutes = require('./routes/private/owner-routes');
 const scheduleRoutes = require('./routes/private/schedule-routes');
 const servicesRoutes = require('./routes/private/services-routes');
 const visitorRouter = require('./routes/public/visitor-routes');
+const apiRoutes = require('./routes/api/apiRoutes');
 
 app.use('/', index);
 app.use('/', authRoutes);
@@ -121,10 +124,11 @@ app.use('/owner', ownerRoutes);
 app.use('/schedules', scheduleRoutes);
 app.use('/services', servicesRoutes);
 app.use('/visitor', visitorRouter);
+app.use('/api', apiRoutes);
+
 
 app.listen(process.env.PORT, () => {
   console.log('Server listen', process.env.PORT);
 });
-
 
 module.exports = app;
