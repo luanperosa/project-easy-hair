@@ -1,0 +1,29 @@
+<div class="container">
+  
+  <h3 class="center-align">Meus Serviços Agendados</h3> 
+</div>
+
+<div class="container">
+<table class="highlight">
+  <thead>
+    <tr>
+        <th>Data</th>
+        <th>Serviço</th>
+        <th>Nome do Salão</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {{#each currentDate }}   
+   <tr>  
+    
+    <td>{{ date }}/{{mounth}}/{{year}} ás {{hour}} horas</td> 
+    <td>{{ service }}</td>
+    <td><a href="/visitor/{{ saloonID }}">{{ saloon }}</a></td>
+  
+    </tr>
+  {{/each}}  
+  </tbody>
+</table>
+
+</div>

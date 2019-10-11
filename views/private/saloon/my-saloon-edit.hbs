@@ -1,0 +1,193 @@
+{{!-- <div class="row container red lighten-5">
+  <h2 class="center">Editar este salão</h2>
+
+  <div class="col s8 push-s2" >
+    <p><a href="/owner/my-saloon/{{this._id}}">Voltar ao salão</a></p>
+  </div>
+
+    
+{{!--
+
+  <form class="col s8 offset-s2" action="/owner/my-saloon/{{this._id}}/edit" method="POST" enctype="multipart/form-data">
+   <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Nome do Estabelecimento" id="saloonName" name="saloonName" type="text" class="validate" value="{{ this.saloonName }}">
+          <label for="saloonName">Nome do Estabelecimento</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Email" id="saloonEmail" name="saloonEmail" type="email" class="validate" value="{{ saloonEmail }}">
+          <label for="saloonEmail">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Telefone para contato" id="contactNumber" name="contactNumber" type="tel" class="validate" value="{{ contactNumber }}">
+          <label for="contactNumber">Telefone</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea placeholder="Horário de Funcionamento" id="openingHours" name="businessHours" type="text" class="validate" value="{{ businessHours }}"></textarea>
+          <label for="openingHours">Horário de Funcionamento</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Endereço" id="street" name="street" type="text" class="validate" value="{{ address.street }}">
+          <label for="street">Endereço</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="CEP" id="zipcode" name="zipcode" type="text" class="validate" value="{{ address.zipcode }}" >
+          <label for="zipcode">CEP</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="city" name="city" type="text" class="validate" value="{{ address.city }}">
+          <label for="city">Cidade</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="state" name="state" type="text" class="validate" value="{{ address.state }}">
+          <label for="state">Estado</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Imagem" id="image" name="photo" type="file">
+          <label for="image"></label>
+        </div>
+      </div>
+      
+      {{#if errorMessage}}
+      <p>{{errorMessage}}</p>
+      {{/if}}
+ 
+      <button class="btn waves-effect waves-light" type="submit">Editar meu salão<i class="material-icons right">send</i></button>
+
+  </form>
+
+<div class="row">
+    <div class="input-field col s12">
+      <form class="col s8 offset-s2" action="/owner/my-saloon/{{ this._id }}/delete" method="POST">
+      <button class="btn-small waves-effect waves-light red darked-4" type="submit">Deletar este salão</button>
+      </form>
+    </div>
+</div>
+</div>
+
+</div>   --}}
+
+  <section class="container">
+    
+  <h1 class="center-align">Editar meu salão</h1>
+
+  {{#if error}}
+    <div class="card-panel red lighten-4">{{error}}</div>
+  {{/if}}
+  {{#if success}}
+    <div class="card-panel teal lighten-4">{{success}}</div>
+  {{/if}}
+<div class="row">
+  <p class="left"><a href="/owner/my-saloon/{{this._id}}">Voltar para á página do estabelecimento</a></p> <br><br><br>
+  <div class="col m6 s12">
+    <label class="sr-only" for="inputAddressQuery">Digite seu novo endereço</label>
+    <input type="text" name="inputAddressQuery" id="inputAddressQuery" placeholder="Pesquisar" aria-label="Search for a spot" aria-describedby="search-spot">
+    <div>
+      <button id="searchAddressQuery"  class="waves-effect waves-light btn" type="submit"><i class="material-icons medium left">search</i>Pesquisar</button>
+    </div>
+    
+    {{!-- <ul id="queryResult"></ul> --}}
+    <table class="centered striped">
+      <thead>
+        <tr>
+            <th>Nome Estabelecimento</th>
+            <th>Endereço</th>
+            <th>Preencher cadastro</th> 
+        </tr>
+        
+    </thead>
+    <tbody id="queryResult">
+
+    </tbody>
+    </table>
+
+  </div>
+    <div id="map" class="col m6 s12"></div>
+
+</div>
+  
+</section>
+
+<div class="row container red lighten-5">
+  <h4 class="center-align">Editar este Salão</h4>
+  <br>
+<div id="clearForm"></div>
+  
+  
+  <form action="/owner/my-saloon/{{this._id}}/edit" id="form-container" class="col s8 offset-s2"  method="POST" enctype="multipart/form-data">
+
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input placeholder="Nome do Estabelecimento" id="saloonName" name="saloonName" type="text" class="validate" value="{{ saloonName }}">
+        <label for="saloonName">Nome do Estabelecimento</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input placeholder="Email" id="saloonEmail" name="saloonEmail" type="text" class="validate" value="{{ saloonEmail }}">
+        <label for="saloonEmail">Email</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input placeholder="Usuário do Instagram" id="instagramProfile" name="instagramProfile" type="text" class="validate" value="{{ instagramProfile }}">
+        <label for="instagramProfile">Usuário Instagram</label>
+      </div>
+    </div>
+     
+    <div class="row">
+      <div class="input-field col s12">
+        <input placeholder="Telefone" id="contactNumber" name="contactNumber" type="text" class="validate" value="{{ contactNumber }}">
+        <label for="contactNumber">Telefone</label>
+      </div>
+    </div>
+ 
+    <div class="row">
+      <div class="input-field col s12">
+        <input placeholder="Endereço" id="fullAddress" name="fullAddress" type="text" class="validate" value="{{ fullAddress }}">
+        <label for="fullAddress">Endereço</label>
+        <p id="error-message"></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea placeholder="Horário de Funcionamento" id="businessHours" name="businessHours" type="text" class="validate" rows="7">{{ businessHours }}</textarea>
+        <label for="businessHours">Horário de Funcionamento</label>
+      </div>
+    </div>
+    <label for="coverPhoto">Selecione uma Foto de Capa</label><br>
+    <input id="coverPhoto" type="file" name="photo" class="">
+
+    <input type="hidden" id="saloonPosition" name="saloonPosition" type="text">
+    <input type="hidden" id="placeID" name="placeID" type="text">
+    <input type="hidden" id="ratingFromGoogle" name="ratingFromGoogle" type="number">
+    <div id="imageGallery"></div>
+    <div id="reviewsFromGoogle"></div>
+    <br><br>
+    <button class="btn waves-effect waves-light" type="submit">Editar meu salão<i class="material-icons right">send</i></button>
+  </form>
+    <form class="col s8 offset-s2" action="/owner/my-saloon/{{ this._id }}/delete" method="POST">
+      <button class="btn-small waves-effect waves-light red darked-4 inline-btn" type="submit">Deletar este salão</button>
+    </form>
+
+</div>
+
+  <!-- JavaScript -->
+  <script src="/javascripts/add-saloon.js"></script>
+

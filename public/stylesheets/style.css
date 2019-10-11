@@ -1,0 +1,43 @@
+body {
+  background-color: rgb(224, 210, 210);
+}
+
+#vertical-space {
+  height: 30px;
+  background: black;
+  display:block;
+}
+
+.my-saloon-link {
+  display: none;
+}
+
+#map {
+  height: 400px;
+  width: 50%;
+ }
+
+.inline-btn {
+  display: inline;
+}
+
+#sizeCard {
+width: 50%;
+}
+
+
+#imageCard {
+max-height:200px;
+height: auto;
+}
+
+
+ #imageCard {
+  max-height:200px;
+  height: auto;
+  
+ }
+
+.card-reviews {
+  padding: 15px;
+}

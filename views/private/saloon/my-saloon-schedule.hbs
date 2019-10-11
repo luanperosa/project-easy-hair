@@ -1,0 +1,30 @@
+
+<div class="container">
+  <h3 class="center-align">Agenda de serviços de {{ currentSaloon.saloonName }}</h3>
+  <p><a href="/owner/my-saloon">Voltar para meu(s) estabelecimento(s)</a></p>
+</div>
+
+<div class="container">
+<table class="highlight">
+  <thead>
+    <tr>
+        <th>Data</th>
+        <th>Serviço</th>
+        <th>Nome do Cliente</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {{#each arrayObject }}   
+   <tr>  
+    
+    <td>{{ date }}</td> 
+    <td>{{ service }}</td>
+    <td>{{ customer }}</td>
+    
+    </tr>
+  {{/each}}  
+  </tbody>
+</table>
+
+</div>
