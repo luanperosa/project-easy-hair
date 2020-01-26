@@ -1,5 +1,5 @@
 # project-easy-hair
-<h2>Ironhack Project module 2 </h2>
+<h2>Ironhack Project module 2</h2>
 
 https://project-easy-hair.herokuapp.com/home 
 
